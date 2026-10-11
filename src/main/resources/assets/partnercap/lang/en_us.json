@@ -1,0 +1,23 @@
+{
+	"item.partnercap.partner_capsule": "Partner Capsule",
+	"item.partnercap.flame_sword": "Flame Sword",
+	"item.partnercap.soul_capsule": "Soul Capsule",
+	"item.partnercap.gamble_capsule": "Gamble Capsule",
+	"item.partnercap.disassemble_capsule": "Disassemble Capsule",
+	"item.partnercap.void_bucket": "Void Liquid Bucket",
+	"item.partnercap.void_capsule": "Void Capsule",
+	"block.partnercap.void_liquid": "Void Liquid",
+	"entity.partnercap.gloom_devourer": "Gloom Devourer",
+	"item.partnercap.gloom_devourer_spawn_egg": "Gloom Devourer Spawn Egg",
+	"item.partnercap.titan_capsule": "Titan Capsule",
+	"item.partnercap.medusa_head": "Medusa Head",
+	"item.partnercap.medusa_spawn_egg": "Medusa Spawn Egg",
+	"entity.partnercap.medusa": "Medusa",
+	"entity.partnercap.medusa_statue": "Petrified Statue",
+	"item.partnercap.mech_capsule": "Mech Capsule",
+	"entity.partnercap.mech_robot": "Mech Robot",
+	"itemGroup.partnercap.main": "Partner Capsule",
+	"key.partnercap.open": "Open Partner Capsule",
+	"key.partnercap.soul_toggle": "Summon/Store Inner Souls",
+	"category.partnercap.main": "Partner Capsule"
+}

@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		" I ",
+		"IBI",
+		" I "
+	],
+	"key": {
+		"I": "minecraft:iron_ingot",
+		"B": "partnercap:void_bucket"
+	},
+	"result": {
+		"id": "partnercap:void_capsule",
+		"count": 1
+	}
+}

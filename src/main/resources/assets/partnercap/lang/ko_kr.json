@@ -1,0 +1,23 @@
+{
+	"item.partnercap.partner_capsule": "파트너 캡슐",
+	"item.partnercap.flame_sword": "불길의 검",
+	"item.partnercap.soul_capsule": "소울 캡슐",
+	"item.partnercap.gamble_capsule": "도박 캡슐",
+	"item.partnercap.disassemble_capsule": "분해 캡슐",
+	"item.partnercap.void_bucket": "공허의 액체 양동이",
+	"item.partnercap.void_capsule": "공허 캡슐",
+	"block.partnercap.void_liquid": "공허의 액체",
+	"entity.partnercap.gloom_devourer": "먹보 도깨비",
+	"item.partnercap.gloom_devourer_spawn_egg": "먹보 도깨비 스폰알",
+	"item.partnercap.titan_capsule": "타이탄 캡슐",
+	"item.partnercap.medusa_head": "메두사의 머리",
+	"item.partnercap.medusa_spawn_egg": "메두사 스폰알",
+	"entity.partnercap.medusa": "메두사",
+	"entity.partnercap.medusa_statue": "석화된 석상",
+	"item.partnercap.mech_capsule": "메카 캡슐",
+	"entity.partnercap.mech_robot": "메카 로봇",
+	"itemGroup.partnercap.main": "파트너 캡슐",
+	"key.partnercap.open": "파트너 캡슐 열기",
+	"key.partnercap.soul_toggle": "몸속 소울 소환/저장",
+	"category.partnercap.main": "파트너 캡슐"
+}

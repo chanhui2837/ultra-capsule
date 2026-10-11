@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "partnercap",
+	"version": "${version}",
+	"name": "Partner Cap - 보관 캡슐",
+	"description": "길들인 동물/몹을 캡슐에 보관하고 소환하는 보관 캡슐 모드 (MC 26.3 대응)",
+	"authors": [
+		"You"
+	],
+	"contact": {},
+	"license": "MIT",
+	"icon": "assets/partnercap/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.partnercap.PartnerCapMod"
+		],
+		"client": [
+			"com.partnercap.client.PartnerCapClient"
+		]
+	},
+	"mixins": [
+		"partnercap.mixins.json",
+		{
+			"config": "partnercap.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

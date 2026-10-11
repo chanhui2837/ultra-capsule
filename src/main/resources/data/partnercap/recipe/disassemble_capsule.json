@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"I I",
+		" F ",
+		"I I"
+	],
+	"key": {
+		"I": "minecraft:iron_ingot",
+		"F": "minecraft:furnace"
+	},
+	"result": {
+		"id": "partnercap:disassemble_capsule",
+		"count": 1
+	}
+}

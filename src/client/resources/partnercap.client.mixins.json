@@ -1,0 +1,21 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.partnercap.mixin.client",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"LivingEntityRendererPetrifyMixin",
+		"LivingEntityStateGlowMixin",
+		"LivingEntityStatePetrifyMixin",
+		"RenderTypesPetrifyMixin",
+		"WolfCollarLayerPetrifyMixin",
+		"CatCollarLayerPetrifyMixin",
+		"WolfTintPetrifyMixin",
+		"SheepWoolPetrifyMixin",
+		"VillagerHatPetrifyMixin",
+		"EyesLayerPetrifyMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
