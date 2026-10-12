@@ -1,0 +1,14 @@
+{
+	"layers": {
+		"humanoid": [
+			{
+				"texture": "partnercap:silicate"
+			}
+		],
+		"humanoid_leggings": [
+			{
+				"texture": "partnercap:silicate"
+			}
+		]
+	}
+}

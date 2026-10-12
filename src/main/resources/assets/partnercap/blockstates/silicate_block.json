@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"spent=false": {
+			"model": "partnercap:block/silicate_block"
+		},
+		"spent=true": {
+			"model": "partnercap:block/silicate_block"
+		}
+	}
+}

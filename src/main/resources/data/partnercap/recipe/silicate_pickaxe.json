@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "equipment",
+	"pattern": [
+		"III",
+		" S ",
+		" S "
+	],
+	"key": {
+		"I": "partnercap:silicate_ingot",
+		"S": "minecraft:stick"
+	},
+	"result": {
+		"id": "partnercap:silicate_pickaxe",
+		"count": 1
+	}
+}

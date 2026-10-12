@@ -1,0 +1,9 @@
+{
+	"replace": false,
+	"values": [
+		"partnercap:silicate_sword",
+		"partnercap:silicate_axe",
+		"partnercap:gamble_capsule",
+		"partnercap:soul_capsule"
+	]
+}

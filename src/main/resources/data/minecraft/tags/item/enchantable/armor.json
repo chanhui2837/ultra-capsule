@@ -1,0 +1,9 @@
+{
+	"replace": false,
+	"values": [
+		"partnercap:silicate_helmet",
+		"partnercap:silicate_chestplate",
+		"partnercap:silicate_leggings",
+		"partnercap:silicate_boots"
+	]
+}

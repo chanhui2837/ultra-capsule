@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		"partnercap:silicate_shard",
+		"partnercap:silicate_shard",
+		"partnercap:silicate_shard",
+		"partnercap:silicate_shard",
+		"partnercap:silicate_shard",
+		"partnercap:silicate_shard",
+		"partnercap:silicate_shard",
+		"partnercap:silicate_shard",
+		"partnercap:silicate_shard"
+	],
+	"result": {
+		"id": "partnercap:silicate_ingot",
+		"count": 1
+	}
+}
