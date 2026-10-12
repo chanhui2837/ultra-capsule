@@ -7,6 +7,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 
 public class MechRobotRenderer extends MobRenderer<MechRobotEntity, MechRenderState, MechRobotModel> {
 
@@ -40,19 +41,33 @@ public class MechRobotRenderer extends MobRenderer<MechRobotEntity, MechRenderSt
 			p = 0f;
 		}
 		state.transform = p;
-		// 1인칭으로 직접 타는 메카는 머리 숨김 (카메라가 머리 안에 있어 앞이 막힘)
-		boolean hide = false;
+		// 1인칭으로 직접 타는 메카: 겉모습 대신 조종석 내부를 그림 (밖에서 보면 조종석은 안 보임)
+		boolean cockpit = false;
+		float camYaw = 0f;
+		float camPitch = 0f;
 		try {
 			net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
 			if (mc != null && mc.player != null && mc.player.getVehicle() == entity) {
 				try {
-					hide = mc.options.getCameraType().isFirstPerson();
+					cockpit = mc.options.getCameraType().isFirstPerson();
 				} catch (Exception ignored) {
+				}
+				if (cockpit) {
+					// 카메라와 같은 보간값(partial tick)을 써야 조종석 창틀이 시야 회전 중 떨리지 않는다
+					camYaw = mc.player.getViewYRot(tickProgress);
+					camPitch = mc.player.getViewXRot(tickProgress);
 				}
 			}
 		} catch (Exception ignored) {
 		}
-		state.hideHead = hide;
+		state.cockpitView = cockpit;
+		state.camYaw = camYaw;
+		state.camPitch = camPitch;
+		try {
+			state.bodyYaw = Mth.rotLerp(tickProgress, entity.yBodyRotO, entity.yBodyRot);
+		} catch (Exception ignored) {
+			state.bodyYaw = camYaw;
+		}
 		try {
 			if (state instanceof net.minecraft.client.renderer.entity.state.LivingEntityRenderState living) {
 				if (living.scale != 0) {

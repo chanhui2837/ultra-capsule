@@ -15,12 +15,17 @@ import net.minecraft.util.Mth;
  * - 팔 3마디(상완·전완·주먹), 견갑은 팔의 자식(팔을 들면 같이 움직임), 우팔 전완에 팔 장착 캐논
  * - 머리 피벗을 목으로 이동, 귀 장갑 추가, 골반 추가
  * - 포드는 캡슐볼 형태(캡 2 + 몸통)
- * - UV 겹침 없음 (128x64)
+ * - UV 겹침 없음 (128x128: 위쪽 128x64=겉모습, 아래쪽 y64~125=조종석)
+ * - 조종석(cockpit): 탑승자 눈 위치(발+2.55)를 원점으로 한 닫힌 캐빈(바닥·계기판·천장·기둥·측벽·후벽·좌석·조종간).
+ *   앞면 창은 '비어 있는' 개구부라 유리창처럼 밖이 보인다. 1인칭 탑승(state.cockpitView)일 때만 그려지고
+ *   겉모습은 전부 숨긴다. 밖에서는 cockpit 파트가 항상 숨겨져 내부가 보이지 않는다.
  * transform 0→1: 팔다리 접힘+머리 숙임 (서버 회전+스케일과 합쳐져 트랜스포머식 변신).
  */
 public class MechRobotModel extends EntityModel<MechRenderState> {
 
 	private static final float DEG = 0.017453292f;
+	/** 조종석이 시선 pitch를 따라가는 비율 (1=헬멧처럼 고정, 0=완전 고정). 살짝 덜 따라가서 캐빈이 몸에 달린 느낌을 줌 */
+	private static final float COCKPIT_PITCH_FOLLOW = 0.8f;
 
 	private final ModelPart head;
 	private final ModelPart torso;
@@ -37,6 +42,7 @@ public class MechRobotModel extends EntityModel<MechRenderState> {
 	private final ModelPart footL;
 	private final ModelPart footR;
 	private final ModelPart pod;
+	private final ModelPart cockpit;
 
 	public MechRobotModel(ModelPart root) {
 		super(root);
@@ -55,6 +61,7 @@ public class MechRobotModel extends EntityModel<MechRenderState> {
 		this.footL = this.shinL.getChild("foot_l");
 		this.footR = this.shinR.getChild("foot_r");
 		this.pod = root.getChild("pod");
+		this.cockpit = root.getChild("cockpit");
 	}
 
 	private static void arm(PartDefinition root, String side, float x, boolean withCannon) {
@@ -137,7 +144,56 @@ public class MechRobotModel extends EntityModel<MechRenderState> {
 		pod.addOrReplaceChild("pod_bottom",
 				CubeListBuilder.create().texOffs(48, 52).addBox(-4, 30, -4, 8, 2, 8),
 				PartPose.ZERO);
-		return LayerDefinition.create(mesh, 128, 64);
+		// 조종석 (피벗 = 탑승자 눈 위치. 1인칭 탑승 중에만 표시. 좌표는 눈 기준 px, +y 아래, 앞 = -z)
+		PartDefinition cockpit = root.addOrReplaceChild("cockpit",
+				CubeListBuilder.create(),
+				PartPose.offset(0, 3.2f, 0));
+		cockpit.addOrReplaceChild("deck",
+				CubeListBuilder.create().texOffs(0, 64).addBox(-13, 7, -8, 26, 2, 16),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("header",
+				CubeListBuilder.create().texOffs(0, 82).addBox(-13, -9, -8, 26, 4, 16),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("back_wall",
+				CubeListBuilder.create().texOffs(0, 102).addBox(-13, -9, 8, 26, 18, 2),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("wall_l",
+				CubeListBuilder.create().texOffs(84, 64).addBox(-13, -9, -8, 3, 18, 16),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("wall_r",
+				CubeListBuilder.create().texOffs(84, 64).addBox(10, -9, -8, 3, 18, 16),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("dash",
+				CubeListBuilder.create().texOffs(56, 102).addBox(-10, 3.5f, -8, 20, 6, 4),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("pillar_l",
+				CubeListBuilder.create().texOffs(104, 102).addBox(-10, -5, -8, 3, 8, 2),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("pillar_r",
+				CubeListBuilder.create().texOffs(104, 102).addBox(7, -5, -8, 3, 8, 2),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("seat",
+				CubeListBuilder.create().texOffs(56, 112).addBox(-4, 5, 1, 8, 2, 7),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("seat_back",
+				CubeListBuilder.create().texOffs(86, 112).addBox(-4, -2, 6, 8, 7, 2),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("headrest",
+				CubeListBuilder.create().texOffs(106, 114).addBox(-2.5f, -5, 6, 5, 3, 2),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("stick_l",
+				CubeListBuilder.create().texOffs(0, 122).addBox(-8.5f, 1.5f, -5, 1, 2, 1),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("knob_l",
+				CubeListBuilder.create().texOffs(4, 122).addBox(-9, 0.5f, -5.5f, 2, 1, 2),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("stick_r",
+				CubeListBuilder.create().texOffs(0, 122).addBox(7.5f, 1.5f, -5, 1, 2, 1),
+				PartPose.ZERO);
+		cockpit.addOrReplaceChild("knob_r",
+				CubeListBuilder.create().texOffs(4, 122).addBox(7, 0.5f, -5.5f, 2, 1, 2),
+				PartPose.ZERO);
+		return LayerDefinition.create(mesh, 128, 128);
 	}
 
 	private static float clamp01(float v) {
@@ -202,18 +258,27 @@ public class MechRobotModel extends EntityModel<MechRenderState> {
 		// 포드(캡슐볼) ↔ 로봇 교체 (교체 순간 섬광으로 가림: 서버 파티클)
 		boolean showPod = p >= 0.5f;
 		this.pod.visible = showPod;
-		// 1인칭 탑승 중엔 머리 숨김 (카메라가 머리 안에 있어 앞이 막힘). 모델 공유되므로 매 프레임 양방향 설정
-		boolean hideHead = false;
+		// 1인칭 탑승(조종석 시점): 겉모습은 전부 숨기고 조종석 내부만 그린다.
+		// 모델이 개체 간 공유되므로 매 프레임 양방향으로 설정해야 다른 메카·3인칭 렌더에 상태가 새지 않는다.
+		boolean cockpitOn = false;
 		try {
-			hideHead = state.hideHead;
+			cockpitOn = state.cockpitView && !showPod;
 		} catch (Exception ignored) {
 		}
-		this.head.visible = !showPod && !hideHead;
-		this.torso.visible = !showPod;
-		this.pelvis.visible = !showPod;
-		this.armL.visible = !showPod;
-		this.armR.visible = !showPod;
-		this.legL.visible = !showPod;
-		this.legR.visible = !showPod;
+		this.cockpit.visible = cockpitOn;
+		if (cockpitOn) {
+			// yaw: 실시간 카메라 yaw 기준(몸통 회전 지연 보정) → 창이 항상 정면. pitch: 시선을 일부만 따라감
+			float yawRel = Mth.wrapDegrees(state.camYaw - state.bodyYaw);
+			this.cockpit.yRot = yawRel * DEG;
+			this.cockpit.xRot = Mth.clamp(state.camPitch, -90f, 90f) * COCKPIT_PITCH_FOLLOW * DEG;
+		}
+		boolean hull = !showPod && !cockpitOn;
+		this.head.visible = hull;
+		this.torso.visible = hull;
+		this.pelvis.visible = hull;
+		this.armL.visible = hull;
+		this.armR.visible = hull;
+		this.legL.visible = hull;
+		this.legR.visible = hull;
 	}
 }

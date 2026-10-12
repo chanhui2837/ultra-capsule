@@ -58,11 +58,12 @@ public class MechRobotEntity extends Mob {
 	public static final float MAX_HP = 200.0F;
 	public static final int CAPSULE_DURABILITY = 200;
 	/**
-	 * 탑승자 발 위치 (메카 발 + 0.93).
-	 * 플레이어 눈(발+1.62)이 메카 바이저(발+2.55, 모델 4/44.5지점)에 오도록 →
-	 * 1인칭·3인칭 카메라가 메카 얼굴이 되어 메카가 된 것처럼 조종. 레이저도 얼굴에서 발사.
+	 * 탑승자 "눈" 높이 (메카 발 기준 2.55, 메카 바이저 높이, 모델 4/44.5지점).
+	 * 플레이어 눈이 항상 이 높이에 오도록 getPassengerRidingPosition에서 탑승자의 눈높이와
+	 * 탑승 부착점(Avatar.DEFAULT_VEHICLE_ATTACHMENT, 기본 y=0.6)을 보정한다.
+	 * → 1인칭·3인칭 카메라가 메카 얼굴이 되어 메카가 된 것처럼 조종. 레이저도 얼굴에서 발사.
 	 */
-	public static final float RIDER_Y = 0.93F;
+	public static final float EYE_Y = 2.55F;
 
 	private static final EntityDataAccessor<Integer> TRANSFORM = SynchedEntityData.defineId(MechRobotEntity.class,
 			EntityDataSerializers.INT);
@@ -459,7 +460,19 @@ public class MechRobotEntity extends Mob {
 	@Override
 	public Vec3 getPassengerRidingPosition(Entity passenger) {
 		try {
-			return this.position().add(0.0, RIDER_Y, 0.0);
+			// positionRider는 (이 값 - 탑승자 vehicle attachment)로 탑승자 발을 놓는다(플레이어 기본 y=0.6).
+			// 그걸 빼먹으면 눈이 설계 높이보다 0.6칸 낮아져 카메라가 조종석 바닥 아래로 들어간다.
+			double eyeH = 1.62;
+			double att = 0.0;
+			try {
+				eyeH = passenger.getEyeHeight();
+			} catch (Exception ignored) {
+			}
+			try {
+				att = passenger.getVehicleAttachmentPoint(this).y;
+			} catch (Exception ignored) {
+			}
+			return this.position().add(0.0, EYE_Y - eyeH + att, 0.0);
 		} catch (Exception e) {
 			return super.getPassengerRidingPosition(passenger);
 		}

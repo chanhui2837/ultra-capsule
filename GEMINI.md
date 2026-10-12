@@ -20,7 +20,7 @@ Read `README.md` for full feature docs (Korean). This file is the code map.
   `VoidErase`, `TitanData.tickRepair` → `UseEntityCallback` (capture priority:
   petrified-mine > soul-recapture > void-capture > partner-capture).
 - `src/client/java/com/partnercap/client/PartnerCapClient.java` — keys (`C` manage, `H` soul toggle),
-  entity renderers, model layers, `ArmorRenderer` (blindfold), cockpit `hideHead` flag consumer.
+  entity renderers, model layers, `ArmorRenderer` (blindfold), mech cockpit view flag (`MechRenderState.cockpitView`) is set in `MechRobotRenderer.extractRenderState`.
 - `src/main/java/com/partnercap/item/ModItems.java` — all 13 items + creative tab.
 
 ## Module Map
@@ -33,7 +33,7 @@ Read `README.md` for full feature docs (Korean). This file is the code map.
 | Disassemble capsule (reverse-recipe) | `item/DisassembleCapsuleItem.java`, `util/GambleLogic.java` (`findReverse`/`disassemble`) |
 | Void capsule (capture/release/erase+rewind) | `item/VoidCapsuleItem.java`, `voidcap/VoidData.java`, `voidcap/VoidErase.java` |
 | Titan capsule (gradual repair/anvil/head charge) | `titan/TitanCapsuleItem.java`, `titan/TitanData.java` |
-| Mech capsule + rideable robot | `mech/MechCapsuleItem.java`, `mech/MechRobotEntity.java`, `mech/MechEvents.java` (rider shield + aggro redirect), `client/entity/Mech*` |
+| Mech capsule + rideable robot | `mech/MechCapsuleItem.java`, `mech/MechRobotEntity.java`, `mech/MechEvents.java` (rider shield + aggro redirect), `client/entity/Mech*` (cockpit = `cockpit` part in `MechRobotModel`, texture `mech_robot.png` is 128x128: top 128x64 = exterior, y64+ = cockpit; visible only when `cockpitView`, hides the whole exterior) |
 | Medusa / petrify / head / blindfold | `medusa/MedusaEntity.java` (gaze 16m/cos0.86/250ms lock), `medusa/MedusaEvents.java`, `medusa/Petrify.java`, `medusa/StatueEntity.java`, `medusa/MedusaHeadItem.java` (durability 6 = 5 uses), `medusa/BlindfoldItem.java` (helmet slot, blindness, gaze immune) |
 | Silicate gear + meteor | `silicate/ModSilicate.java`, `silicate/SilicateGear.java`, `silicate/MeteorEvents.java`, `silicate/SilicateBlock.java` |
 | Gloom Devourer + void liquid | `entity/GloomDevourerEntity.java`, `entity/ModEntityTypes.java`, `fluid/ModFluids.java`, `fluid/ModBlocks.java`, `fluid/VoidFluid.java`, `fluid/ModWorldGen.java` |
