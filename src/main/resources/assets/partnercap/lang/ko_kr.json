@@ -33,5 +33,13 @@
 	"item.partnercap.silicate_helmet": "규산 투구",
 	"item.partnercap.silicate_chestplate": "규산 흉갑",
 	"item.partnercap.silicate_leggings": "규산 레깅스",
-	"item.partnercap.silicate_boots": "규산 부츠"
+	"item.partnercap.silicate_boots": "규산 부츠",
+	"entity.partnercap.flame_mong": "화염몽",
+	"item.partnercap.flame_mong_spawn_egg": "화염몽 스폰알",
+	"item.partnercap.flame_heart": "화염몽의 심장",
+	"item.partnercap.transcend_wand": "초월의 막대",
+	"item.partnercap.dragon_blood_bottle": "화염룡의 피 유리병",
+	"block.partnercap.yeolgwan": "열관",
+	"item.partnercap.yeolgwan": "열관",
+	"key.partnercap.flame_breath": "화염 브레스 (꾹)"
 }

@@ -48,6 +48,7 @@ public class PartnerCapMod implements ModInitializer {
 		ModEntityTypes.registerAttributes();
 		ModItems.register();
 		com.partnercap.silicate.ModSilicate.register();
+		com.partnercap.flame.ModFlame.register();
 		com.partnercap.silicate.MeteorEvents.register();
 		ModWorldGen.register();
 		ModPackets.registerServerReceivers();
@@ -61,6 +62,7 @@ public class PartnerCapMod implements ModInitializer {
 		} catch (Exception ignored) {
 		}
 		SoulEvents.register();
+		com.partnercap.flame.FlameMongEvents.register();
 		com.partnercap.medusa.MedusaEvents.register();
 		com.partnercap.medusa.BlindfoldItem.register();
 		com.partnercap.mech.MechEvents.register();

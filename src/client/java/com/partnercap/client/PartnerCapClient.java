@@ -19,6 +19,7 @@ public class PartnerCapClient implements ClientModInitializer {
 
 	public static KeyMapping openCapKey;
 	public static KeyMapping soulToggleKey;
+	public static KeyMapping flameBreathKey;
 	private static boolean mechAtkDown = false;
 	private static boolean mechJmpDown = false;
 
@@ -31,6 +32,10 @@ public class PartnerCapClient implements ClientModInitializer {
 		soulToggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
 				"key.partnercap.soul_toggle",
 				InputConstants.KEY_H,
+				KeyMapping.Category.MISC));
+		flameBreathKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+				"key.partnercap.flame_breath",
+				InputConstants.KEY_F,
 				KeyMapping.Category.MISC));
 
 		try {
@@ -86,6 +91,16 @@ public class PartnerCapClient implements ClientModInitializer {
 			net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer.register(
 					context -> new com.partnercap.client.entity.BlindfoldArmorRenderer(context),
 					com.partnercap.item.ModItems.BLINDFOLD);
+		} catch (Exception ignored) {
+		}
+		// 화염몽
+		try {
+			net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry.registerModelLayer(
+					com.partnercap.client.entity.FlameMongRenderer.LAYER,
+					com.partnercap.client.entity.FlameMongModel::getTexturedModelData);
+			net.minecraft.client.renderer.entity.EntityRenderers.register(
+					com.partnercap.flame.ModFlame.FLAME_MONG,
+					com.partnercap.client.entity.FlameMongRenderer::new);
 		} catch (Exception ignored) {
 		}
 
@@ -172,6 +187,17 @@ public class PartnerCapClient implements ClientModInitializer {
 			while (soulToggleKey.consumeClick()) {
 			}
 			return;
+		}
+		// F 홀드: 화염 브레스 (빈손+피 효과일 때 서버가 판정)
+		try {
+			if (flameBreathKey.isDown() && client.player.getMainHandItem().isEmpty()
+					&& client.player.getOffhandItem().isEmpty()) {
+				try {
+					ClientPlayNetworking.send(new ModPackets.FlameBreathPayload());
+				} catch (Exception ignored) {
+				}
+			}
+		} catch (Exception ignored) {
 		}
 		// H키: 몸속 소울 소환/저장 토글
 		while (soulToggleKey.consumeClick()) {

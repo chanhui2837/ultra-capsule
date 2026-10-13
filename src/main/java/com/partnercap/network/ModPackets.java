@@ -345,6 +345,17 @@ public class ModPackets {
 		}
 	}
 
+	public record FlameBreathPayload() implements CustomPacketPayload {
+		public static final Type<FlameBreathPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(PartnerCapMod.MOD_ID, "flame_breath"));
+		public static final StreamCodec<RegistryFriendlyByteBuf, FlameBreathPayload> CODEC =
+				StreamCodec.unit(new FlameBreathPayload());
+
+		@Override
+		public Type<? extends CustomPacketPayload> type() {
+			return TYPE;
+		}
+	}
+
 	public record OpenUtilityGuiPayload(int kind, boolean mainHand) implements CustomPacketPayload {
 		public static final Type<OpenUtilityGuiPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(PartnerCapMod.MOD_ID, "open_utility_gui"));
 		public static final StreamCodec<RegistryFriendlyByteBuf, OpenUtilityGuiPayload> CODEC =
@@ -388,6 +399,7 @@ public class ModPackets {
 		PayloadTypeRegistry.serverboundPlay().register(MechJumpPayload.TYPE, MechJumpPayload.CODEC);
 		PayloadTypeRegistry.serverboundPlay().register(TitanDepositPayload.TYPE, TitanDepositPayload.CODEC);
 		PayloadTypeRegistry.serverboundPlay().register(TitanWithdrawPayload.TYPE, TitanWithdrawPayload.CODEC);
+		PayloadTypeRegistry.serverboundPlay().register(FlameBreathPayload.TYPE, FlameBreathPayload.CODEC);
 
 		ServerPlayNetworking.registerGlobalReceiver(HealPetPayload.TYPE, (payload, context) -> {
 			ServerPlayer player = context.player();
@@ -514,6 +526,15 @@ public class ModPackets {
 		ServerPlayNetworking.registerGlobalReceiver(TitanWithdrawPayload.TYPE, (payload, context) -> {
 			ServerPlayer player = context.player();
 			context.server().execute(() -> handleTitanWithdraw(player));
+		});
+		ServerPlayNetworking.registerGlobalReceiver(FlameBreathPayload.TYPE, (payload, context) -> {
+			ServerPlayer player = context.player();
+			context.server().execute(() -> {
+				try {
+					com.partnercap.flame.FlameBreath.breathe(player);
+				} catch (Exception ignored) {
+				}
+			});
 		});
 	}
 

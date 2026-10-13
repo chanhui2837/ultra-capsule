@@ -145,8 +145,9 @@ public class ModItems {
 					output.accept(TITAN_CAPSULE);
 					output.accept(MEDUSA_HEAD);
 					output.accept(MEDUSA_SPAWN_EGG);
-					output.accept(BLINDFOLD);
-					com.partnercap.silicate.ModSilicate.addToTab(output);
+				output.accept(BLINDFOLD);
+				com.partnercap.silicate.ModSilicate.addToTab(output);
+				com.partnercap.flame.ModFlame.addToTab(output);
 				})
 				.build();
 		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, GROUP_KEY, GROUP);

@@ -33,5 +33,13 @@
 	"item.partnercap.silicate_helmet": "Silicate Helmet",
 	"item.partnercap.silicate_chestplate": "Silicate Chestplate",
 	"item.partnercap.silicate_leggings": "Silicate Leggings",
-	"item.partnercap.silicate_boots": "Silicate Boots"
+	"item.partnercap.silicate_boots": "Silicate Boots",
+	"entity.partnercap.flame_mong": "Flame Mong",
+	"item.partnercap.flame_mong_spawn_egg": "Flame Mong Spawn Egg",
+	"item.partnercap.flame_heart": "Flame Mong Heart",
+	"item.partnercap.transcend_wand": "Rod of Transcendence",
+	"item.partnercap.dragon_blood_bottle": "Fire Dragon Blood Bottle",
+	"block.partnercap.yeolgwan": "Yeolgwan",
+	"item.partnercap.yeolgwan": "Yeolgwan",
+	"key.partnercap.flame_breath": "Flame Breath (hold)"
 }
