@@ -30,6 +30,11 @@ public class FlameMongRenderer extends MobRenderer<FlameMongEntity, FlameMongRen
 		} catch (Exception ignored) {
 			state.mouthOpen = 0;
 		}
+		try {
+			state.climbing = entity.horizontalCollision && !entity.isInLava();
+		} catch (Exception ignored) {
+			state.climbing = false;
+		}
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import net.minecraft.util.Mth;
  * 화염몽 모델: 불타는 원숭이.
  * - 머리: 큰 귀 2개 + 불꽃 볏 3가닥 + 벌어지는 아래턱(화염 połączony)
  * - 몸: 둥근 배 + 어깨 화염털 + 긴 꼬리(흔들림) + 긴 팔
- * - UV 겹침 없음 (64x64)
+ * - UV 겹침 없음 (128x128: 몸통/머리 64x64 + 긴팔/주먹 우측 여백)
  */
 public class FlameMongModel extends EntityModel<FlameMongRenderState> {
 
@@ -107,13 +107,19 @@ public class FlameMongModel extends EntityModel<FlameMongRenderState> {
 				CubeListBuilder.create().texOffs(38, 10).addBox(-1.5f, -6, -1.5f, 3, 6, 3),
 				PartPose.offsetAndRotation(0, -7, 0, -0.25f, 0, 0));
 
-		// 팔 (김)
-		root.addOrReplaceChild("arm_l",
-				CubeListBuilder.create().texOffs(0, 47).addBox(-2, -1, -2, 4, 12, 4),
+		// 팔 (김, 너클워크: 땅에 닿을 만큼 길고 끝엔 주먹. UV는 128x128 우측 여백)
+		PartDefinition armL = root.addOrReplaceChild("arm_l",
+				CubeListBuilder.create().texOffs(64, 0).addBox(-2, -1, -2, 4, 17, 4),
 				PartPose.offset(-7, 4, 0));
-		root.addOrReplaceChild("arm_r",
-				CubeListBuilder.create().texOffs(0, 47).addBox(-2, -1, -2, 4, 12, 4),
+		armL.addOrReplaceChild("fist",
+				CubeListBuilder.create().texOffs(64, 24).addBox(-2.2f, 15, -2.2f, 4.5f, 3.5f, 4.5f),
+				PartPose.offset(0, 0, 0));
+		PartDefinition armR = root.addOrReplaceChild("arm_r",
+				CubeListBuilder.create().texOffs(64, 0).addBox(-2, -1, -2, 4, 17, 4),
 				PartPose.offset(7, 4, 0));
+		armR.addOrReplaceChild("fist",
+				CubeListBuilder.create().texOffs(64, 24).addBox(-2.2f, 15, -2.2f, 4.5f, 3.5f, 4.5f),
+				PartPose.offset(0, 0, 0));
 		// 다리 (짧음)
 		root.addOrReplaceChild("leg_l",
 				CubeListBuilder.create().texOffs(16, 47).addBox(-2, 0, -2, 4, 7, 4),
@@ -122,7 +128,7 @@ public class FlameMongModel extends EntityModel<FlameMongRenderState> {
 				CubeListBuilder.create().texOffs(16, 47).addBox(-2, 0, -2, 4, 7, 4),
 				PartPose.offset(2.8f, 17, 0));
 
-		return LayerDefinition.create(mesh, 64, 64);
+		return LayerDefinition.create(mesh, 128, 128);
 	}
 
 	@Override
@@ -132,19 +138,44 @@ public class FlameMongModel extends EntityModel<FlameMongRenderState> {
 			float walk = state.walkAnimationPos;
 			float speed = state.walkAnimationSpeed;
 			float age = state.ageInTicks;
-			// 걷기
-			try {
-				this.armL.xRot = Mth.cos(walk * 0.7f) * 0.7f * speed;
-				this.armR.xRot = Mth.cos(walk * 0.7f + (float) Math.PI) * 0.7f * speed;
-				this.legL.xRot = Mth.cos(walk * 0.7f + (float) Math.PI) * 0.6f * speed;
-				this.legR.xRot = Mth.cos(walk * 0.7f) * 0.6f * speed;
-			} catch (Exception ignored) {
-			}
-			// 꼬리 흔들림
-			try {
-				this.tail.yRot = Mth.sin(age * 0.12f) * 0.35f;
-				this.tailTip.yRot = Mth.sin(age * 0.12f + 1.0f) * 0.4f;
-			} catch (Exception ignored) {
+			boolean moving = speed > 0.08f;
+			// 나무 타는 중: 팔 위로, 다리 굽힘, 몸 수직
+			if (state.climbing) {
+				try {
+					this.armL.xRot = -2.4f + Mth.sin(age * 0.3f) * 0.25f;
+					this.armR.xRot = -2.4f - Mth.sin(age * 0.3f) * 0.25f;
+					this.legL.xRot = 0.9f;
+					this.legR.xRot = 0.9f;
+					this.body.xRot = -0.25f;
+					this.head.xRot = 0.2f;
+					this.tail.yRot = Mth.sin(age * 0.2f) * 0.5f;
+				} catch (Exception ignored) {
+				}
+			} else {
+				// 사지보행 (마카크식 대각보행: 왼팔+오른발 / 오른팔+왼발 동시)
+				float freq = moving && speed > 0.5f ? 0.95f : 0.7f;
+				float amp = moving && speed > 0.5f ? 0.95f : 0.7f;
+				try {
+					this.armL.xRot = Mth.cos(walk * freq) * amp * Math.min(1f, speed * 2f);
+					this.armR.xRot = Mth.cos(walk * freq + (float) Math.PI) * amp * Math.min(1f, speed * 2f);
+					this.legL.xRot = Mth.cos(walk * freq + (float) Math.PI) * 0.7f * Math.min(1f, speed * 2f);
+					this.legR.xRot = Mth.cos(walk * freq) * 0.7f * Math.min(1f, speed * 2f);
+				} catch (Exception ignored) {
+				}
+				// 질주 갤럽: 몸 상하 출렁임 + 앞으로 숙임 (너클워크 자세)
+				try {
+					float lean = moving ? 0.14f : 0.03f;
+					this.body.xRot = lean + (moving ? Mth.sin(walk * freq * 2f) * 0.05f : 0f);
+					this.head.xRot = lean * 0.6f;
+				} catch (Exception ignored) {
+				}
+				// 꼬리 균형 (달릴수록 높이 듦)
+				try {
+					this.tail.xRot = -0.9f + (moving ? 0.35f : Mth.sin(age * 0.07f) * 0.08f);
+					this.tail.yRot = Mth.sin(age * 0.12f) * 0.35f;
+					this.tailTip.yRot = Mth.sin(age * 0.12f + 1.0f) * 0.4f;
+				} catch (Exception ignored) {
+				}
 			}
 			// 입 벌림 (화염 발사 시)
 			try {

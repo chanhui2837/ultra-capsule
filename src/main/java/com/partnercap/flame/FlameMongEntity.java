@@ -50,6 +50,10 @@ public class FlameMongEntity extends Monster {
 
 	public static final float BREATH_DAMAGE = 6.0F;
 	public static final double BREATH_RANGE = 12.0;
+	/** 한 번 불을 뿜면 유지되는 시간 (3초 길게) */
+	public static final int BREATH_DURATION = 60;
+	/** 브레스 중 주변 착화 반경 */
+	public static final double IGNITE_RADIUS = 4.0;
 	public static final int WAND_COOLDOWN_TICKS = 200;
 	public static final int WAND_SLOW_TICKS = 60;
 	public static final double HOME_RADIUS = 32.0;
@@ -64,6 +68,9 @@ public class FlameMongEntity extends Monster {
 	private int spitTick = 0;
 	private int playTick = 0;
 	private int homeScanTick = 0;
+	/** 지속 브레스 잔여 틱 + 방향 (한 번 쏘면 길게 나감) */
+	private int breathTicks = 0;
+	private Vec3 breathDir = Vec3.ZERO;
 
 	public FlameMongEntity(EntityType<? extends FlameMongEntity> type, Level level) {
 		super(type, level);
@@ -76,8 +83,8 @@ public class FlameMongEntity extends Monster {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 40.0)
-				.add(Attributes.MOVEMENT_SPEED, 0.32)
-				.add(Attributes.ATTACK_DAMAGE, 5.0)
+				.add(Attributes.MOVEMENT_SPEED, 0.42)
+				.add(Attributes.ATTACK_DAMAGE, 6.0)
 				.add(Attributes.FOLLOW_RANGE, 24.0)
 				.add(Attributes.KNOCKBACK_RESISTANCE, 0.2)
 				.add(Attributes.STEP_HEIGHT, 1.0);
@@ -133,11 +140,12 @@ public class FlameMongEntity extends Monster {
 		try {
 			this.goalSelector.addGoal(0, new FloatGoal(this));
 			this.goalSelector.addGoal(1, new FlameSpitGoal(this));
-			this.goalSelector.addGoal(2, new LavaRestGoal(this));
-			this.goalSelector.addGoal(3, new TreePlayGoal(this));
-			this.goalSelector.addGoal(4, new RandomStrollGoal(this, 0.8));
-			this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-			this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+			this.goalSelector.addGoal(2, new net.minecraft.world.entity.ai.goal.MeleeAttackGoal(this, 1.4, false));
+			this.goalSelector.addGoal(3, new LavaRestGoal(this));
+			this.goalSelector.addGoal(4, new TreePlayGoal(this));
+			this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
+			this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+			this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
 		} catch (Exception ignored) {
 		}
 		try {
@@ -244,12 +252,9 @@ public class FlameMongEntity extends Monster {
 		return false;
 	}
 
-	/** 입에서 불: 전방 원뿔 피해+착화+불꽃 파티클. 수호 중엔 플레이어 방향, 평소엔 랜덤 방향. */
+	/** 입에서 불: 한 번 쏘면 3초간 길게 유지 (tick에서 방출). 수호 중엔 대상 추적. */
 	public void breatheFire(Vec3 dir) {
 		try {
-			if (!(level() instanceof ServerLevel sl)) {
-				return;
-			}
 			if (dir == null || dir.lengthSqr() < 1e-6) {
 				try {
 					dir = getLookAngle();
@@ -257,14 +262,35 @@ public class FlameMongEntity extends Monster {
 					return;
 				}
 			}
-			Vec3 n = dir.normalize();
+			breathDir = dir.normalize();
+			breathTicks = BREATH_DURATION;
+			setMouthOpen(BREATH_DURATION + 10);
+			try {
+				if (level() instanceof ServerLevel sl) {
+					sl.playSound(null, blockPosition(), SoundEvents.BLAZE_SHOOT, SoundSource.HOSTILE, 0.8f, 1.2f);
+				}
+			} catch (Exception ignored) {
+			}
+		} catch (Exception ignored) {
+		}
+	}
+
+	/** 지속 브레스 1회 방출: 전방 원뿔 피해+착화+파티클+주변 착화. */
+	private void emitBreathTick() {
+		try {
+			if (!(level() instanceof ServerLevel sl)) {
+				return;
+			}
+			Vec3 n = breathDir;
+			if (n == null || n.lengthSqr() < 1e-6) {
+				return;
+			}
 			Vec3 mouth;
 			try {
 				mouth = getEyePosition().add(n.scale(0.6));
 			} catch (Exception e) {
 				return;
 			}
-			setMouthOpen(10);
 			try {
 				sl.sendParticles(net.minecraft.core.particles.ParticleTypes.FLAME,
 						mouth.x, mouth.y, mouth.z, 14, n.x * 0.4, n.y * 0.4 + 0.2, n.z * 0.4, 0.08);
@@ -273,10 +299,6 @@ public class FlameMongEntity extends Monster {
 			try {
 				sl.sendParticles(net.minecraft.core.particles.ParticleTypes.LAVA,
 						mouth.x, mouth.y, mouth.z, 4, 0.2, 0.2, 0.2, 0.0);
-			} catch (Exception ignored) {
-			}
-			try {
-				level().playSound(null, blockPosition(), SoundEvents.BLAZE_SHOOT, SoundSource.HOSTILE, 0.8f, 1.2f);
 			} catch (Exception ignored) {
 			}
 			// 전방 원뿔 안 LivingEntity에게 화염 피해+착화 (자신 제외)
@@ -312,16 +334,61 @@ public class FlameMongEntity extends Monster {
 				}
 			} catch (Exception ignored) {
 			}
-			// 바라본 지점에 불 붙이기 (공기+아래가 단단하면)
+			// 주변 착화: 반경 4m 무작위 지점에 불 붙이기
 			try {
-				Vec3 hit = mouth.add(n.scale(4.0));
-				BlockPos fp = BlockPos.containing(hit.x, hit.y, hit.z);
-				if (sl.getBlockState(fp).isAir() && sl.getBlockState(fp.below()).isSolidRender()) {
-					sl.setBlockAndUpdate(fp, Blocks.FIRE.defaultBlockState());
+				for (int i = 0; i < 6; i++) {
+					try {
+						if (random.nextFloat() > 0.4f) {
+							continue;
+						}
+						double ox = (random.nextDouble() - 0.5) * 2 * IGNITE_RADIUS;
+						double oz = (random.nextDouble() - 0.5) * 2 * IGNITE_RADIUS;
+						BlockPos fp = BlockPos.containing(getX() + ox + n.x * 2, getY() + 1, getZ() + oz + n.z * 2);
+						if (sl.getBlockState(fp).isAir() && sl.getBlockState(fp.below()).isSolidRender()) {
+							sl.setBlockAndUpdate(fp, Blocks.FIRE.defaultBlockState());
+						}
+					} catch (Exception ignored) {
+					}
 				}
 			} catch (Exception ignored) {
 			}
 		} catch (Exception ignored) {
+		}
+	}
+
+	/** 맞으면 즉시 반격: 공격자를 타겟으로 + 긴 브레스. */
+	@Override
+	public boolean hurtServer(ServerLevel level, net.minecraft.world.damagesource.DamageSource source, float amount) {
+		try {
+			Entity attacker = null;
+			try {
+				attacker = source.getEntity();
+			} catch (Exception ignored) {
+			}
+			if (attacker instanceof LivingEntity living && living.isAlive()) {
+				try {
+					boolean skip = false;
+					try {
+						if (living instanceof Player p && (p.isCreative() || p.isSpectator())) {
+							skip = true;
+						}
+					} catch (Exception ignored) {
+					}
+					if (!skip) {
+						setTarget(living);
+						Vec3 dir = new Vec3(living.getX() - getX(), (living.getY() + 1) - getEyeY(),
+								living.getZ() - getZ());
+						breatheFire(dir);
+					}
+				} catch (Exception ignored) {
+				}
+			}
+		} catch (Exception ignored) {
+		}
+		try {
+			return super.hurtServer(level, source, amount);
+		} catch (Exception e) {
+			return false;
 		}
 	}
 
@@ -379,6 +446,27 @@ public class FlameMongEntity extends Monster {
 		}
 		if (level().isClientSide()) {
 			return;
+		}
+		// 지속 브레스 방출 (3틱마다, 대상 있으면 방향 추적)
+		try {
+			if (breathTicks > 0) {
+				breathTicks--;
+				try {
+					LivingEntity t = getTarget();
+					if (t != null && t.isAlive()) {
+						breathDir = new Vec3(t.getX() - getX(), (t.getY() + 1) - getEyeY(), t.getZ() - getZ())
+								.normalize();
+					}
+				} catch (Exception ignored) {
+				}
+				if (breathTicks % 3 == 0) {
+					emitBreathTick();
+				}
+				if (breathTicks <= 0) {
+					setMouthOpen(0);
+				}
+			}
+		} catch (Exception ignored) {
 		}
 		// 용암 면역 유지 + 오른손 지팡이 고정
 		try {
@@ -555,7 +643,7 @@ public class FlameMongEntity extends Monster {
 		@Override
 		public void start() {
 			try {
-				mong.getNavigation().moveTo(mong.homeLava.getX() + 0.5, mong.homeLava.getY(), mong.homeLava.getZ() + 0.5, 1.0);
+				mong.getNavigation().moveTo(mong.homeLava.getX() + 0.5, mong.homeLava.getY(), mong.homeLava.getZ() + 0.5, 1.2);
 			} catch (Exception ignored) {
 			}
 		}
@@ -622,7 +710,7 @@ public class FlameMongEntity extends Monster {
 			try {
 				mong.playTick = mong.tickCount;
 				if (tree != null) {
-					mong.getNavigation().moveTo(tree.getX() + 0.5, tree.getY(), tree.getZ() + 0.5, 1.1);
+					mong.getNavigation().moveTo(tree.getX() + 0.5, tree.getY(), tree.getZ() + 0.5, 1.3);
 				}
 			} catch (Exception ignored) {
 			}
