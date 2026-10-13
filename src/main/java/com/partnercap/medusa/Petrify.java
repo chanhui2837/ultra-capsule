@@ -258,6 +258,22 @@ public class Petrify {
 				recordPetrifier(victim.getUUID(), medusa == null ? null : medusa.getUUID());
 			} catch (Exception ignored) {
 			}
+			// 메카 석화 시 즉시 강제 하차: 탑승자가 돌과 함께 동결/동승 고정되는 것 방지
+			try {
+				if (victim.isVehicle()) {
+					victim.ejectPassengers();
+				}
+			} catch (Exception ignored) {
+			}
+			try {
+				for (Entity passenger : new java.util.ArrayList<>(victim.getPassengers())) {
+					try {
+						passenger.stopRiding();
+					} catch (Exception ignored) {
+					}
+				}
+			} catch (Exception ignored) {
+			}
 			try {
 				victim.setDeltaMovement(0, 0, 0);
 			} catch (Exception ignored) {

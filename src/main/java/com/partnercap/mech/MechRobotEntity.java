@@ -44,7 +44,8 @@ public class MechRobotEntity extends Mob {
 
 	public static final String TAG_OWNER = "mechowner-";
 
-	public static final int ANIM_LEN = 70;
+	/** 변신 연출 길이(틱). 포드 개방 → 다리 → 상체 → 팔 → 머리 → 안착 단계가 이 길이에 분배된다 (5.5초) */
+	public static final int ANIM_LEN = 110;
 	public static final int MODE_ROBOT = 0;
 	public static final int MODE_TO_ROBOT = 1;
 	public static final int MODE_TO_CAPSULE = 2;
@@ -75,8 +76,7 @@ public class MechRobotEntity extends Mob {
 	private int backProgress = 0;
 	private int sndTick = 0;
 	private float baseYaw = 0f;
-	private float lastP = 0f;
-	private boolean flashed = false;
+	private float lastU = 0f;
 
 	private record ThrowWatch(ServerLevel level, java.util.UUID itemId, UUID owner, long start) {
 	}
@@ -693,6 +693,24 @@ public class MechRobotEntity extends Mob {
 		}
 		// 석상 동결: Mob.tick 취소에 더해 조종·복귀충전·변신 진행도 여기서 멈춤
 		if (isPetrifiedStatue(this)) {
+			// 석화 순간 탑승 중이었다면 즉시 강제 하차 (Petrify.petrify의 즉시 처리 + 틱 안전망)
+			try {
+				if (!level().isClientSide() && isVehicle()) {
+					ejectPassengers();
+				}
+			} catch (Exception ignored) {
+			}
+			try {
+				if (!level().isClientSide()) {
+					for (Entity passenger : new java.util.ArrayList<>(getPassengers())) {
+						try {
+							passenger.stopRiding();
+						} catch (Exception ignored) {
+						}
+					}
+				}
+			} catch (Exception ignored) {
+			}
 			return;
 		}
 		// 탑승 이동은 바닐라 체인(aiStep → travelRidden → travel 오버라이드)이
@@ -708,68 +726,49 @@ public class MechRobotEntity extends Mob {
 			}
 		} catch (Exception ignored) {
 		}
-		// 변신 애니메이션 진행 (포드 진동 → 섬광 교체 → 스테이지 전개)
+		// 변신 애니메이션 진행 (포드 시동 → 뚜껑 개방 → 다리 → 상체 → 팔 → 머리 → 안착. 되돌릴 땐 역순)
+		// 실제 포즈는 클라 모델(MechRobotModel)이 같은 u(0=캡슐, 1=로봇)로 그리고, 서버는 효과음·파티클만 담당한다.
 		try {
 			int mode = getTransformMode();
 			int t = getTransformTicks();
 			if (mode != MODE_ROBOT && t > 0) {
-				float p = (mode == MODE_TO_ROBOT) ? (t / (float) ANIM_LEN) : (1f - t / (float) ANIM_LEN);
+				float u = (mode == MODE_TO_ROBOT) ? (1f - t / (float) ANIM_LEN) : (t / (float) ANIM_LEN);
 				if (t == ANIM_LEN) {
 					try {
 						baseYaw = getYRot();
 					} catch (Exception ignored) {
 					}
-					flashed = false;
-					lastP = p;
+					lastU = u;
 				}
-				// 포드 단계에서 진동 (펼쳐질수록 잦아듦)
+				// 변신 중에는 제자리 고정 (방향도 유지)
 				try {
-					float shake = 9.0f * p;
-					setYRot(baseYaw + (float) Math.sin(tickCount * 1.1) * shake);
+					setYRot(baseYaw);
 				} catch (Exception ignored) {
 				}
 				try {
 					setDeltaMovement(getDeltaMovement().scale(0.0));
 				} catch (Exception ignored) {
 				}
-				// 포드↔로봇 교체 순간 섬광 (팝 가림)
-				if (!flashed && (lastP - 0.5f) * (p - 0.5f) < 0 && level() instanceof ServerLevel slf) {
-					flashed = true;
-					try {
-						slf.sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD,
-								getX(), getY() + 1.5, getZ(), 24, 0.7, 1.0, 0.7, 0.08);
-						slf.sendParticles(net.minecraft.core.particles.ParticleTypes.SMOKE,
-								getX(), getY() + 1.0, getZ(), 12, 0.6, 0.8, 0.6, 0.05);
-						slf.playSound(null, blockPosition(),
-								net.minecraft.sounds.SoundEvents.PISTON_CONTRACT,
-								SoundSource.HOSTILE, 1.2f, 0.9f);
-					} catch (Exception ignored) {
-					}
+				if (level() instanceof ServerLevel slx) {
+					transformFx(slx, lastU, u);
 				}
-				lastP = p;
+				lastU = u;
 				sndTick++;
-				// 스테이지 금속음 (부품별 쿵)
-				if ((t == 55 || t == 40 || t == 25 || t == 12) && level() instanceof ServerLevel sl) {
+				// 단계별 불꽃: 지금 움직이는 부위 높이에서 튄다 (캡슐=발치, 로봇=머리 쪽)
+				if (sndTick % 3 == 0 && level() instanceof ServerLevel sl) {
 					try {
-						sl.playSound(null, blockPosition(),
-								net.minecraft.sounds.SoundEvents.PISTON_EXTEND,
-								SoundSource.HOSTILE, 1.1f, 0.65f + (0.5f * (1.0f - t / (float) ANIM_LEN)));
-					} catch (Exception ignored) {
-					}
-				}
-				if (sndTick % 8 == 0 && level() instanceof ServerLevel sl) {
-					try {
-						int n = p > 0.5f ? 7 : 4;
-						for (int i = 0; i < n; i++) {
-							double ox = (sl.getRandom().nextDouble() - 0.5) * 2.2;
-							double oy = sl.getRandom().nextDouble() * (p > 0.5f ? 1.2 : 3.0);
-							double oz = (sl.getRandom().nextDouble() - 0.5) * 2.2;
+						double yy = 0.5 + 1.9 * u;
+						for (int i = 0; i < 3; i++) {
+							double ox = (sl.getRandom().nextDouble() - 0.5) * (0.6 + 0.9 * u);
+							double oy = (sl.getRandom().nextDouble() - 0.5) * 0.8;
+							double oz = (sl.getRandom().nextDouble() - 0.5) * (0.6 + 0.9 * u);
 							sl.sendParticles(net.minecraft.core.particles.ParticleTypes.ELECTRIC_SPARK,
-									getX() + ox, getY() + oy, getZ() + oz, 1, 0, 0, 0, 0.0);
+									getX() + ox, getY() + yy + oy, getZ() + oz, 1, 0, 0, 0, 0.0);
 						}
-						if (p > 0.5f) {
+						if (u > 0.22f && u < 0.56f) {
+							// 다리가 펴지며 바닥 먼지
 							sl.sendParticles(net.minecraft.core.particles.ParticleTypes.SMOKE,
-									getX(), getY() + 0.4, getZ(), 2, 0.5, 0.2, 0.5, 0.03);
+									getX(), getY() + 0.1, getZ(), 2, 0.5, 0.05, 0.5, 0.02);
 						}
 					} catch (Exception ignored) {
 					}
@@ -867,6 +866,96 @@ public class MechRobotEntity extends Mob {
 			}
 		} catch (Exception ignored) {
 		}
+	}
+
+	/** 변신 단계 경계(u)를 지나는 순간의 효과음·파티클. 캡슐→로봇은 위로, 로봇→캡슐은 아래로 지난다. */
+	private static final float[] FX_AT = { 0.06f, 0.22f, 0.30f, 0.45f, 0.56f, 0.74f, 0.86f, 0.96f };
+
+	private void transformFx(ServerLevel sl, float from, float to) {
+		if (from == to) {
+			return;
+		}
+		for (int i = 0; i < FX_AT.length; i++) {
+			float th = FX_AT[i];
+			if ((from - th) * (to - th) >= 0f) {
+				continue;
+			}
+			try {
+				switch (i) {
+					case 0 -> {
+						// 시동: 캡슐 이음매 점등
+						sl.playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.PISTON_EXTEND,
+								SoundSource.HOSTILE, 0.8f, 1.5f);
+						sl.sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD,
+								getX(), getY() + 0.9, getZ(), 10, 0.3, 0.2, 0.3, 0.03);
+					}
+					case 1 -> {
+						// 뚜껑 완전 개방
+						sl.playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.PISTON_CONTRACT,
+								SoundSource.HOSTILE, 1.0f, 0.8f);
+						sl.sendParticles(net.minecraft.core.particles.ParticleTypes.SMOKE,
+								getX(), getY() + 1.4, getZ(), 12, 0.3, 0.2, 0.3, 0.03);
+					}
+					case 2 -> {
+						// 다리 전개 시작 (쿵)
+						sl.playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.ANVIL_LAND,
+								SoundSource.HOSTILE, 0.9f, 0.6f);
+						sl.sendParticles(net.minecraft.core.particles.ParticleTypes.SMOKE,
+								getX(), getY() + 0.1, getZ(), 14, 0.9, 0.05, 0.9, 0.03);
+					}
+					case 3 -> {
+						// 무릎·발목 고정
+						sl.playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.PISTON_EXTEND,
+								SoundSource.HOSTILE, 1.0f, 0.7f);
+						sl.sendParticles(net.minecraft.core.particles.ParticleTypes.ELECTRIC_SPARK,
+								getX(), getY() + 0.5, getZ(), 16, 0.5, 0.3, 0.5, 0.05);
+					}
+					case 4 -> {
+						// 견갑·팔 전개
+						sl.playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.PISTON_EXTEND,
+								SoundSource.HOSTILE, 1.0f, 0.9f);
+						sl.sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD,
+								getX(), getY() + 1.8, getZ(), 8, 0.7, 0.2, 0.2, 0.02);
+					}
+					case 5 -> {
+						// 팔·캐논 고정
+						sl.playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.ANVIL_LAND,
+								SoundSource.HOSTILE, 0.8f, 1.0f);
+						sl.sendParticles(net.minecraft.core.particles.ParticleTypes.ELECTRIC_SPARK,
+								getX(), getY() + 1.8, getZ(), 18, 0.7, 0.4, 0.5, 0.05);
+					}
+					case 6 -> {
+						// 머리 기동, 바이저 점등
+						sl.playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.EXPERIENCE_ORB_PICKUP,
+								SoundSource.HOSTILE, 1.0f, 1.6f);
+						sl.sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD,
+								getX(), getY() + 2.5, getZ(), 14, 0.3, 0.2, 0.3, 0.04);
+					}
+					default -> {
+						// 안착
+						sl.playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.ANVIL_LAND,
+								SoundSource.HOSTILE, 1.0f, 1.4f);
+						sl.sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD,
+								getX(), getY() + 1.5, getZ(), 20, 0.8, 1.0, 0.8, 0.05);
+					}
+				}
+			} catch (Exception ignored) {
+			}
+		}
+	}
+
+	/** 탑승자(조종사)가 자기 로봇을 때리는 판정 차단 (좌클릭 레이저 발사 시 같이 나가는 근접 공격 방지) */
+	@Override
+	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+		try {
+			Entity attacker = source.getEntity();
+			Entity direct = source.getDirectEntity();
+			if ((attacker != null && attacker.getVehicle() == this) || (direct != null && direct.getVehicle() == this)) {
+				return false;
+			}
+		} catch (Exception ignored) {
+		}
+		return super.hurtServer(level, source, amount);
 	}
 
 	private void finishFoldToCapsule() {

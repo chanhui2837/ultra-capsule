@@ -40,6 +40,21 @@ public class MechEvents {
 	}
 
 	public static void register() {
+		// 탑승자가 자기 메카를 때리는 판정 차단 (좌클릭 = 레이저 발사인데 근접 공격이 같이 나가던 문제).
+		// 클라·서버 양쪽에서 호출되어 공격 패킷 자체를 막는다. (엔티티 쪽 hurtServer 차단은 이중 안전장치)
+		try {
+			net.fabricmc.fabric.api.event.player.AttackEntityCallback.EVENT
+					.register((player, world, hand, entity, hitResult) -> {
+						try {
+							if (entity instanceof MechRobotEntity && player.getVehicle() == entity) {
+								return net.minecraft.world.InteractionResult.FAIL;
+							}
+						} catch (Exception ignored) {
+						}
+						return net.minecraft.world.InteractionResult.PASS;
+					});
+		} catch (Exception ignored) {
+		}
 		// 탑승 중 플레이어는 무적
 		try {
 			ServerLivingEntityEvents.ALLOW_DAMAGE.register((LivingEntity victim, DamageSource source, float amount) -> {

@@ -90,6 +90,23 @@ public class MedusaEvents {
 								try {
 									if (e instanceof LivingEntity living
 											&& Petrify.isPetrified(living)) {
+										// 석화된 메카에 탑승자가 남아 있으면 강제 하차 (NBT 로드 등 예외 경로 안전망)
+										try {
+											if (living.isVehicle()) {
+												living.ejectPassengers();
+											}
+										} catch (Exception ignored) {
+										}
+										try {
+											for (Entity passenger : new java.util.ArrayList<>(
+													living.getPassengers())) {
+												try {
+													passenger.stopRiding();
+												} catch (Exception ignored) {
+												}
+											}
+										} catch (Exception ignored) {
+										}
 										try {
 											living.hurtTime = 0;
 											living.deathTime = 0;

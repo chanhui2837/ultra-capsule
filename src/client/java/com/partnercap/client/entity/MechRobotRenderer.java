@@ -74,13 +74,8 @@ public class MechRobotRenderer extends MobRenderer<MechRobotEntity, MechRenderSt
 					living.boundingBoxWidth = living.boundingBoxWidth / living.scale;
 					living.boundingBoxHeight = living.boundingBoxHeight / living.scale;
 				}
-				float s = 0.55f + 0.45f * (1f - p);
-				// 포드 단계에서 부들부들 팽창 (시동 거는 느낌)
-				try {
-					s += 0.035f * (float) Math.sin(state.ageInTicks * 0.55f) * p;
-				} catch (Exception ignored) {
-				}
-				living.scale = s;
+				// 변신은 전부 모델(MechRobotModel)이 부품 단위로 그린다. 개체 전체 스케일은 건드리지 않는다.
+				living.scale = 1.0f;
 			}
 		} catch (Exception ignored) {
 		}
