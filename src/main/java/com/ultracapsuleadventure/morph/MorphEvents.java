@@ -2403,11 +2403,14 @@ public class MorphEvents {
 					if (t == null) {
 						return true;
 					}
-					t.hurtServer(sl, sl.damageSources().mobAttack(p), 8.0f);
-					t.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 1, false, true, true));
-					sl.sendParticles(ParticleTypes.SMOKE, t.getX(), t.getY() + t.getBbHeight() * 0.5, t.getZ(),
-							20, 0.3, 0.4, 0.3, 0.05);
-					sl.playSound(null, p.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 0.8f, 1.2f);
+					// 먹보 괴물 스킬: 단순히 죽이는 게 아니라 "삼켜서 되돌림"
+					// 먹힌 대상의 피해를 회복시키고, 석화를 해제하고, 거래를 무효화하고, 장비를 드롭
+					com.ultracapsuleadventure.voidcap.VoidErase.devourRewind(sl, t, p.getUUID());
+					// 삼킨 대상 제거 (공허 캡슐에 가두는 연출)
+					t.discard();
+					sl.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, t.getX(), t.getY() + t.getBbHeight() * 0.5, t.getZ(),
+							30, 0.4, 0.8, 0.4, 0.2);
+					sl.playSound(null, p.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0f, 1.0f);
 					ABILITY_COOL.put(p.getUUID(), now + 100);
 					return true;
 				}
