@@ -2034,6 +2034,7 @@ public class MorphEvents {
 			case "minecraft:ender_dragon" -> "dragon_fireball";
 			case "minecraft:wither" -> "wither_skull";
 			case "ultracapsuleadventure:mech_robot" -> "small_fireball";
+			case "ultracapsuleadventure:flame_mong" -> "fireball";
 			default -> null;
 		};
 	}
@@ -2331,7 +2332,21 @@ public class MorphEvents {
 					return true;
 				}
 				case "ultracapsuleadventure:gloom_devourer" -> {
-					LivingEntity t = lookTarget(sl, p, 10.0);
+					LivingEntity t = lookTarget(sl, p, 12.0);
+					if (t == null) {
+						// 시선 타겟이 없으면 반경 10블록 내 가장 가까운 생물 선택
+						try {
+							net.minecraft.world.phys.AABB box = p.getBoundingBox().inflate(10.0);
+							for (Entity e : sl.getEntities(p, box,
+									x -> x instanceof LivingEntity le && le.isAlive() && !x.isSpectator() && x != p)) {
+								LivingEntity le = (LivingEntity) e;
+								if (t == null || p.distanceToSqr(le) < p.distanceToSqr(t)) {
+									t = le;
+								}
+							}
+						} catch (Exception ignored) {
+						}
+					}
 					if (t == null) {
 						return true;
 					}
