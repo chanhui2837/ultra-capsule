@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "equipment",
+	"pattern": [
+		" I ",
+		"DAD",
+		" I "
+	],
+	"key": {
+		"I": "minecraft:iron_block",
+		"D": "minecraft:diamond",
+		"A": "minecraft:amethyst_shard"
+	},
+	"result": {
+		"id": "UltraCapsuleAdventure:titan_capsule",
+		"count": 1
+	}
+}
+

@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "equipment",
+	"pattern": [
+		"D",
+		"D",
+		"S"
+	],
+	"key": {
+		"D": "UltraCapsuleAdventure:dragon_blood_bottle",
+		"S": "minecraft:stick"
+	},
+	"result": {
+		"id": "UltraCapsuleAdventure:flame_sword",
+		"count": 1
+	}
+}
+

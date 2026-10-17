@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		" I ",
+		"IEI",
+		" I "
+	],
+	"key": {
+		"I": "minecraft:iron_ingot",
+		"E": "minecraft:ender_pearl"
+	},
+	"result": {
+		"id": "UltraCapsuleAdventure:ultra_capsule_adventure",
+		"count": 1
+	}
+}
+
+

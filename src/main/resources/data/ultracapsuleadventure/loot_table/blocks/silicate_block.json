@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "UltraCapsuleAdventure:silicate_shard",
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": 3
+						}
+					]
+				}
+			]
+		}
+	]
+}
+

@@ -1,0 +1,2792 @@
+{
+ "minecraft:allay": {
+  "name": "알레이",
+  "look": "푸른 날개 요정(0.35×0.6)",
+  "hp": 20.0,
+  "atk": 2.0,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "📝아이템을 모아 주인에게 가져다줌",
+   "낙하 피해 면역"
+  ],
+  "traitCodes": [
+   "fly",
+   "fall"
+  ],
+  "allies": [
+   "minecraft:allay"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음(근접 수치 2만 존재)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:armadillo": {
+  "name": "아르마딜로",
+  "look": "갑옷 껍질 사족보행(0.7×0.65)",
+  "hp": 12.0,
+  "atk": null,
+  "speed": 0.14,
+  "speedVar": false,
+  "applied": 0.061,
+  "traits": [
+   "📝위협받으면 공처럼 말아 방어"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:armadillo"
+  ],
+  "hunters": [
+   "minecraft:wolf"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:axolotl": {
+  "name": "아홀로틀",
+  "look": "분홍 도롱뇽(0.75×0.42)",
+  "hp": 14.0,
+  "atk": 2.0,
+  "speed": 1.0,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "육지에서 건조 피해(유예 후)",
+   "물속 호흡",
+   "📝물속 사냥 시 죽은 척 재생"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "moist",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:axolotl"
+  ],
+  "hunters": [
+   "minecraft:guardian",
+   "minecraft:elder_guardian",
+   "minecraft:drowned"
+  ],
+  "scares": [],
+  "attack": "근접 물기 2",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:bat": {
+  "name": "박쥐",
+  "look": "작은 박쥐(0.5×0.9)",
+  "hp": 6.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "📝천장에 매달려 쉼",
+   "낙하 피해 면역"
+  ],
+  "traitCodes": [
+   "fly",
+   "fall"
+  ],
+  "allies": [
+   "minecraft:bat"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:bee": {
+  "name": "벌",
+  "look": "줄무늬 벌(0.7×0.6)",
+  "hp": 10.0,
+  "atk": 2.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "접촉 시 상태이상",
+   "📝쏘면 침을 잃고 죽음(미구현)",
+   "낙하 피해 면역"
+  ],
+  "traitCodes": [
+   "fly",
+   "contact",
+   "fall"
+  ],
+  "allies": [
+   "minecraft:bee",
+   "#minecraft:arthropod"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "근접 침 2 + 독 10초",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:blaze": {
+  "name": "블레이즈",
+  "look": "불타는 막대 회전체(0.6×1.8)",
+  "hp": 20.0,
+  "atk": 6.0,
+  "speed": 0.23,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "화염 면역",
+   "물·비에 피해",
+   "📝비행 중 연기 입자",
+   "낙하 피해 면역"
+  ],
+  "traitCodes": [
+   "fly",
+   "fireimm",
+   "whurt",
+   "fall"
+  ],
+  "allies": [
+   "minecraft:blaze"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "작은 불덩이 연사",
+  "ability": "작은 불덩이 발사(연사)",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:bogged": {
+  "name": "보그드",
+  "look": "이끼 낀 해골(0.6×1.99)",
+  "hp": 16.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "햇빛에 탐(투구 있으면 투구 소모)",
+   "📝독 화살(효과 미구현)",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "sun",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:bogged",
+   "#minecraft:undead",
+   "#minecraft:skeletons"
+  ],
+  "hunters": [
+   "minecraft:wolf",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "화살 원거리",
+  "ability": "화살 발사",
+  "enemyType": true,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:breeze": {
+  "name": "브리즈",
+  "look": "바람 정령(0.6×1.77)",
+  "hp": 30.0,
+  "atk": 3.0,
+  "speed": 0.63,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "낙하 피해 면역",
+   "📝투사체를 튕겨냄",
+   "📝점프 돌진"
+  ],
+  "traitCodes": [
+   "fall"
+  ],
+  "allies": [
+   "minecraft:breeze"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "바람 구체 + 근접 3",
+  "ability": "바람 구체 발사",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:camel": {
+  "name": "낙타",
+  "look": "혹 달린 낙타(1.7×2.375)",
+  "hp": 32.0,
+  "atk": null,
+  "speed": 0.09,
+  "speedVar": false,
+  "applied": 0.039,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)",
+   "📝질주(대시)"
+  ],
+  "traitCodes": [
+   "step"
+  ],
+  "allies": [
+   "minecraft:camel"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:camel_husk": {
+  "name": "낙타 허스크",
+  "look": "언데드 낙타(1.7×2.375)",
+  "hp": 32.0,
+  "atk": null,
+  "speed": 0.09,
+  "speedVar": false,
+  "applied": 0.039,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)",
+   "📝언데드",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "step",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:camel_husk",
+   "#minecraft:undead"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음(기승 몹)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:cat": {
+  "name": "고양이",
+  "look": "고양이(0.6×0.7)",
+  "hp": 10.0,
+  "atk": 3.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "낙하 피해 면역",
+   "📝웅크림 시 크리퍼 위협"
+  ],
+  "traitCodes": [
+   "fall"
+  ],
+  "allies": [
+   "minecraft:cat"
+  ],
+  "hunters": [],
+  "scares": [
+   "minecraft:creeper",
+   "minecraft:phantom"
+  ],
+  "attack": "근접 3(토끼·새끼 거북 사냥)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:cave_spider": {
+  "name": "동굴거미",
+  "look": "작은 독거미(0.7×0.5)",
+  "hp": 16.0,
+  "atk": null,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "벽 타기",
+   "접촉 시 상태이상"
+  ],
+  "traitCodes": [
+   "climb",
+   "contact"
+  ],
+  "allies": [
+   "minecraft:cave_spider",
+   "#minecraft:arthropod"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 + 독(보통 난이도 7초)",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:chicken": {
+  "name": "닭",
+  "look": "닭(0.4×0.7)",
+  "hp": 4.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "느린 낙하(날갯짓)",
+   "낙하 피해 면역",
+   "📝알 낳기(미구현)"
+  ],
+  "traitCodes": [
+   "slowfall",
+   "fall"
+  ],
+  "allies": [
+   "minecraft:chicken"
+  ],
+  "hunters": [
+   "minecraft:fox",
+   "minecraft:ocelot"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:cod": {
+  "name": "대구",
+  "look": "대구(0.5×0.3)",
+  "hp": 3.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:cod"
+  ],
+  "hunters": [
+   "minecraft:fox",
+   "minecraft:axolotl"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:copper_golem": {
+  "name": "구리 골렘",
+  "look": "구리 블록 골렘(0.49×0.98)",
+  "hp": 12.0,
+  "atk": null,
+  "speed": 0.2,
+  "speedVar": false,
+  "applied": 0.087,
+  "traits": [
+   "물속에서 가라앉음",
+   "낙하 피해 면역",
+   "물속 호흡",
+   "1블록 오르기(발판 높이 1.0)",
+   "📝산화 단계 변화·버튼 누르기"
+  ],
+  "traitCodes": [
+   "sink",
+   "fall",
+   "wbreath",
+   "step"
+  ],
+  "allies": [
+   "minecraft:copper_golem",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem",
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:cow": {
+  "name": "소",
+  "look": "소(0.9×1.4)",
+  "hp": 10.0,
+  "atk": null,
+  "speed": 0.2,
+  "speedVar": false,
+  "applied": 0.087,
+  "traits": [
+   "📝우유(미구현)"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:cow",
+   "minecraft:mooshroom"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:creaking": {
+  "name": "크리킹",
+  "look": "나무 뿌리 거인(0.9×2.7)",
+  "hp": 1.0,
+  "atk": 3.0,
+  "speed": 0.4,
+  "speedVar": false,
+  "applied": 0.14,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)",
+   "📝시선이 닿으면 멈춤"
+  ],
+  "traitCodes": [
+   "step"
+  ],
+  "allies": [
+   "minecraft:creaking"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 3(보면 멈추는 몹)",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:creeper": {
+  "name": "크리퍼",
+  "look": "초록 폭발 몹(0.6×1.7)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "웅크리면 자폭"
+  ],
+  "traitCodes": [
+   "creeper"
+  ],
+  "allies": [
+   "minecraft:creeper"
+  ],
+  "hunters": [
+   "minecraft:cat",
+   "minecraft:ocelot",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "웅크리면 폭발(자폭)",
+  "ability": "웅크리기=자폭",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:dolphin": {
+  "name": "돌고래",
+  "look": "돌고래(0.9×0.6)",
+  "hp": 10.0,
+  "atk": 3.0,
+  "speed": 1.2,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "육지에서 건조 피해(유예 후)",
+   "물속 호흡"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "moist",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:dolphin"
+  ],
+  "hunters": [
+   "minecraft:guardian",
+   "minecraft:elder_guardian"
+  ],
+  "scares": [],
+  "attack": "근접 박치기 3",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:donkey": {
+  "name": "당나귀",
+  "look": "당나귀(1.4×1.5)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": true,
+  "applied": 0.1,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)"
+  ],
+  "traitCodes": [
+   "step"
+  ],
+  "allies": [
+   "minecraft:donkey",
+   "minecraft:horse",
+   "minecraft:mule",
+   "minecraft:skeleton_horse",
+   "minecraft:zombie_horse"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음(뒷발차기 연출)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:drowned": {
+  "name": "드라운드",
+  "look": "물에 빠진 좀비(0.6×1.95)",
+  "hp": 20.0,
+  "atk": 3.0,
+  "speed": 0.23,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "햇빛에 탐(투구 있으면 투구 소모)",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "sun",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:drowned",
+   "#minecraft:undead"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "근접 3 / 삼지창 투척",
+  "ability": "삼지창 투척",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:elder_guardian": {
+  "name": "엘더 가디언",
+  "look": "거대한 가디언(1.99×1.99)",
+  "hp": 80.0,
+  "atk": 8.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:elder_guardian",
+   "minecraft:guardian"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:dolphin"
+  ],
+  "attack": "레이저 빔 8 + 근접 8",
+  "ability": "레이저 빔(8 마법 피해)",
+  "enemyType": true,
+  "targets": [
+   "minecraft:axolotl",
+   "minecraft:squid",
+   "minecraft:glow_squid"
+  ]
+ },
+ "minecraft:ender_dragon": {
+  "name": "엔더 드래곤",
+  "look": "거대한 용(16×8)",
+  "hp": 200.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "📝보스"
+  ],
+  "traitCodes": [
+   "fly"
+  ],
+  "allies": [
+   "minecraft:ender_dragon"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "용의 불덩이",
+  "ability": "용의 불덩이 발사",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:enderman": {
+  "name": "엔더맨",
+  "look": "키 큰 보라 눈 몹(0.6×2.9)",
+  "hp": 40.0,
+  "atk": 7.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "물·비에 피해",
+   "1블록 오르기(발판 높이 1.0)",
+   "📝블록 들기(미구현)"
+  ],
+  "traitCodes": [
+   "whurt",
+   "step"
+  ],
+  "allies": [
+   "minecraft:enderman"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 7",
+  "ability": "순간이동(시선 최대 32칸)",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:endermite": {
+  "name": "엔더마이트",
+  "look": "작은 보라 벌레(0.4×0.3)",
+  "hp": 8.0,
+  "atk": 2.0,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "📝엔더맨에게 사냥당함",
+   "📝가루눈 위 걷기"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:endermite",
+   "#minecraft:arthropod"
+  ],
+  "hunters": [
+   "minecraft:enderman",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 2",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:evoker": {
+  "name": "소환사",
+  "look": "푸른 마법 일러저(0.6×1.95)",
+  "hp": 24.0,
+  "atk": null,
+  "speed": 0.5,
+  "speedVar": false,
+  "applied": 0.14,
+  "traits": [
+   "📝토템 소멸"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:evoker",
+   "#minecraft:illager",
+   "#minecraft:raiders"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "송곳니 소환 / 벡스 소환",
+  "ability": "송곳니 소환(전방 일렬)",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:fox": {
+  "name": "여우",
+  "look": "여우(0.6×0.7)",
+  "hp": 10.0,
+  "atk": 2.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)",
+   "📝야행성 사냥",
+   "📝가루눈 위 걷기"
+  ],
+  "traitCodes": [
+   "step"
+  ],
+  "allies": [
+   "minecraft:fox"
+  ],
+  "hunters": [
+   "minecraft:wolf",
+   "minecraft:polar_bear"
+  ],
+  "scares": [],
+  "attack": "근접 물기 2(닭·토끼·물고기 사냥)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:frog": {
+  "name": "개구리",
+  "look": "개구리(0.5×0.5)",
+  "hp": 10.0,
+  "atk": 10.0,
+  "speed": 1.0,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "낙하 피해 면역",
+   "물속 호흡",
+   "📝혀로 슬라임 포식(미구현)"
+  ],
+  "traitCodes": [
+   "fall",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:frog"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "혀 공격(작은 슬라임)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:ghast": {
+  "name": "가스트",
+  "look": "거대한 눈물 유령(4×4)",
+  "hp": 10.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "낙하 피해 면역"
+  ],
+  "traitCodes": [
+   "fly",
+   "fall"
+  ],
+  "allies": [
+   "minecraft:ghast"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "큰 불덩이(폭발)",
+  "ability": "큰 불덩이 발사",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:giant": {
+  "name": "자이언트",
+  "look": "6배 좀비(3.6×12)",
+  "hp": 100.0,
+  "atk": 50.0,
+  "speed": 0.5,
+  "speedVar": false,
+  "applied": 0.14,
+  "traits": [],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:giant",
+   "#minecraft:undead"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "근접 50(스폰 불가 몹)",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:glow_squid": {
+  "name": "발광 오징어",
+  "look": "빛나는 오징어(0.8×0.8)",
+  "hp": 10.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:glow_squid",
+   "minecraft:squid"
+  ],
+  "hunters": [
+   "minecraft:axolotl",
+   "minecraft:guardian",
+   "minecraft:elder_guardian"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음(먹물)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:goat": {
+  "name": "염소",
+  "look": "염소(0.9×1.3)",
+  "hp": 10.0,
+  "atk": 2.0,
+  "speed": 0.2,
+  "speedVar": false,
+  "applied": 0.087,
+  "traits": [
+   "📝높이 점프"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:goat"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "박치기",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:guardian": {
+  "name": "가디언",
+  "look": "가시 달린 물고기 눈(0.85×0.85)",
+  "hp": 30.0,
+  "atk": 6.0,
+  "speed": 0.5,
+  "speedVar": false,
+  "applied": 0.14,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:guardian",
+   "minecraft:elder_guardian"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:dolphin"
+  ],
+  "attack": "레이저 빔 6 + 가시 반사",
+  "ability": "레이저 빔(6 마법 피해)",
+  "enemyType": true,
+  "targets": [
+   "minecraft:axolotl",
+   "minecraft:squid",
+   "minecraft:glow_squid"
+  ]
+ },
+ "minecraft:happy_ghast": {
+  "name": "해피 가스트",
+  "look": "온순한 가스트(4×4)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.05,
+  "speedVar": false,
+  "applied": 0.03,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "낙하 피해 면역",
+   "📝탑승·마구"
+  ],
+  "traitCodes": [
+   "fly",
+   "fall"
+  ],
+  "allies": [
+   "minecraft:happy_ghast"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:hoglin": {
+  "name": "호글린",
+  "look": "멧돼지(1.4×1.4)",
+  "hp": 40.0,
+  "atk": 6.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "📝지옥 외 지역에서 좀비화"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:hoglin"
+  ],
+  "hunters": [
+   "minecraft:piglin",
+   "minecraft:piglin_brute",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 박치기 6",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:horse": {
+  "name": "말",
+  "look": "말(1.4×1.6)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": true,
+  "applied": 0.1,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)"
+  ],
+  "traitCodes": [
+   "step"
+  ],
+  "allies": [
+   "minecraft:horse",
+   "minecraft:donkey",
+   "minecraft:mule",
+   "minecraft:skeleton_horse",
+   "minecraft:zombie_horse"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:husk": {
+  "name": "허스크",
+  "look": "사막 좀비(0.6×1.95)",
+  "hp": 20.0,
+  "atk": 3.0,
+  "speed": 0.23,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "접촉 시 상태이상",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "contact",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:husk",
+   "#minecraft:undead"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "근접 3 + 허기",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:illusioner": {
+  "name": "일루저너",
+  "look": "환술사(0.6×1.95)",
+  "hp": 32.0,
+  "atk": null,
+  "speed": 0.5,
+  "speedVar": false,
+  "applied": 0.14,
+  "traits": [
+   "📝분신 소환(미구현)"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:illusioner",
+   "#minecraft:illager",
+   "#minecraft:raiders"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "화살 + 실명 주문",
+  "ability": "화살 발사",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:iron_golem": {
+  "name": "철 골렘",
+  "look": "철 거인(1.4×2.7)",
+  "hp": 100.0,
+  "atk": 15.0,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "물속에서 가라앉음",
+   "낙하 피해 면역",
+   "물속 호흡",
+   "1블록 오르기(발판 높이 1.0)"
+  ],
+  "traitCodes": [
+   "sink",
+   "fall",
+   "wbreath",
+   "step"
+  ],
+  "allies": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem",
+   "minecraft:copper_golem",
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "근접 15(적대 몹 자동 공격)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:llama": {
+  "name": "라마",
+  "look": "라마(0.9×1.87)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": true,
+  "applied": 0.1,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)"
+  ],
+  "traitCodes": [
+   "step"
+  ],
+  "allies": [
+   "minecraft:llama",
+   "minecraft:trader_llama"
+  ],
+  "hunters": [],
+  "scares": [
+   "minecraft:wolf"
+  ],
+  "attack": "침 뱉기",
+  "ability": "침 발사",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:magma_cube": {
+  "name": "마그마 큐브",
+  "look": "불타는 큐브(2.04×2.04)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.2,
+  "speedVar": true,
+  "applied": 0.087,
+  "traits": [
+   "화염 면역",
+   "물·용암 위에 뜸",
+   "낙하 피해 면역"
+  ],
+  "traitCodes": [
+   "fireimm",
+   "float",
+   "fall"
+  ],
+  "allies": [
+   "minecraft:magma_cube"
+  ],
+  "hunters": [
+   "minecraft:frog",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 박치기",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:mooshroom": {
+  "name": "무시룸",
+  "look": "버섯 소(0.9×1.4)",
+  "hp": 10.0,
+  "atk": null,
+  "speed": 0.2,
+  "speedVar": false,
+  "applied": 0.087,
+  "traits": [
+   "📝버섯 스튜(미구현)"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:mooshroom",
+   "minecraft:cow"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:mule": {
+  "name": "노새",
+  "look": "노새(1.4×1.6)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": true,
+  "applied": 0.1,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)"
+  ],
+  "traitCodes": [
+   "step"
+  ],
+  "allies": [
+   "minecraft:mule",
+   "minecraft:horse",
+   "minecraft:donkey",
+   "minecraft:skeleton_horse",
+   "minecraft:zombie_horse"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:nautilus": {
+  "name": "앵무조개",
+  "look": "앵무조개(0.875×0.95)",
+  "hp": 15.0,
+  "atk": 3.0,
+  "speed": 1.0,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡",
+   "📝돌진"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:nautilus"
+  ],
+  "hunters": [
+   "minecraft:pufferfish"
+  ],
+  "scares": [],
+  "attack": "근접 3(복어 사냥)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:ocelot": {
+  "name": "오셀롯",
+  "look": "야생 삵(0.6×0.7)",
+  "hp": 10.0,
+  "atk": 3.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "낙하 피해 면역"
+  ],
+  "traitCodes": [
+   "fall"
+  ],
+  "allies": [
+   "minecraft:ocelot"
+  ],
+  "hunters": [],
+  "scares": [
+   "minecraft:creeper"
+  ],
+  "attack": "근접 3(닭 사냥)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:panda": {
+  "name": "판다",
+  "look": "판다(1.3×1.25)",
+  "hp": 20.0,
+  "atk": 6.0,
+  "speed": 0.15,
+  "speedVar": false,
+  "applied": 0.065,
+  "traits": [
+   "📝성격별 행동"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:panda"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "근접 6(공격적 성격)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:parched": {
+  "name": "파치드",
+  "look": "마른 해골(0.6×1.99)",
+  "hp": 16.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "📝사막 해골",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:parched",
+   "#minecraft:undead",
+   "#minecraft:skeletons"
+  ],
+  "hunters": [
+   "minecraft:wolf",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "화살 원거리",
+  "ability": "화살 발사",
+  "enemyType": true,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:parrot": {
+  "name": "앵무새",
+  "look": "앵무새(0.5×0.9)",
+  "hp": 6.0,
+  "atk": 3.0,
+  "speed": 0.2,
+  "speedVar": false,
+  "applied": 0.087,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "낙하 피해 면역",
+   "📝소리 흉내(미구현)"
+  ],
+  "traitCodes": [
+   "fly",
+   "fall"
+  ],
+  "allies": [
+   "minecraft:parrot"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:phantom": {
+  "name": "팬텀",
+  "look": "밤 하늘 가오리(0.9×0.5)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "햇빛에 탐(투구 있으면 투구 소모)",
+   "낙하 피해 면역",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "fly",
+   "sun",
+   "fall",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:phantom",
+   "#minecraft:undead"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:cat"
+  ],
+  "attack": "급강하 근접",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:pig": {
+  "name": "돼지",
+  "look": "돼지(0.9×0.9)",
+  "hp": 10.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "📝안장 탑승"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:pig"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:piglin": {
+  "name": "피글린",
+  "look": "금 갑옷 돼지인(0.6×1.95)",
+  "hp": 16.0,
+  "atk": 5.0,
+  "speed": 0.35,
+  "speedVar": false,
+  "applied": 0.14,
+  "traits": [
+   "📝금 좋아함",
+   "📝지옥 밖 좀비화"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:piglin",
+   "minecraft:piglin_brute",
+   "minecraft:zombified_piglin"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접/석궁",
+  "ability": "화살 발사(석궁)",
+  "enemyType": true,
+  "targets": [
+   "minecraft:hoglin",
+   "minecraft:wither_skeleton",
+   "minecraft:wither"
+  ]
+ },
+ "minecraft:piglin_brute": {
+  "name": "피글린 브루트",
+  "look": "도끼 든 피글린(0.6×1.95)",
+  "hp": 50.0,
+  "atk": 7.0,
+  "speed": 0.35,
+  "speedVar": false,
+  "applied": 0.14,
+  "traits": [
+   "📝항상 공격적"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:piglin_brute",
+   "minecraft:piglin",
+   "minecraft:zombified_piglin"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 도끼 7",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:hoglin",
+   "minecraft:wither_skeleton",
+   "minecraft:wither"
+  ]
+ },
+ "minecraft:pillager": {
+  "name": "약탈자",
+  "look": "석궁 일러저(0.6×1.95)",
+  "hp": 24.0,
+  "atk": 5.0,
+  "speed": 0.35,
+  "speedVar": false,
+  "applied": 0.14,
+  "traits": [],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:pillager",
+   "#minecraft:illager",
+   "#minecraft:raiders"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "석궁 화살",
+  "ability": "화살 발사",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:polar_bear": {
+  "name": "북극곰",
+  "look": "북극곰(1.4×1.4)",
+  "hp": 30.0,
+  "atk": 6.0,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "📝가루눈 면역",
+   "가루눈 동결 면역"
+  ],
+  "traitCodes": [
+   "freeze"
+  ],
+  "allies": [
+   "minecraft:polar_bear"
+  ],
+  "hunters": [
+   "minecraft:fox"
+  ],
+  "scares": [],
+  "attack": "근접 6",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:pufferfish": {
+  "name": "복어",
+  "look": "복어(0.7×0.7)",
+  "hp": 3.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡",
+   "접촉 시 상태이상",
+   "📝부풀기"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath",
+   "contact"
+  ],
+  "allies": [
+   "minecraft:pufferfish"
+  ],
+  "hunters": [
+   "minecraft:axolotl",
+   "minecraft:nautilus"
+  ],
+  "scares": [],
+  "attack": "접촉 독",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:rabbit": {
+  "name": "토끼",
+  "look": "토끼(0.4×0.5)",
+  "hp": 3.0,
+  "atk": 3.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "📝가루눈 위 걷기",
+   "📝점프 이동"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:rabbit"
+  ],
+  "hunters": [
+   "minecraft:fox",
+   "minecraft:wolf",
+   "minecraft:cat"
+  ],
+  "scares": [],
+  "attack": "킬러 토끼 변종만 근접",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:ravager": {
+  "name": "파괴수",
+  "look": "뿔 달린 짐승(1.95×2.2)",
+  "hp": 100.0,
+  "atk": 12.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)"
+  ],
+  "traitCodes": [
+   "step"
+  ],
+  "allies": [
+   "minecraft:ravager",
+   "#minecraft:raiders",
+   "#minecraft:illager"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "박치기 12 + 포효",
+  "ability": "포효(주변 밀침+피해)",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:salmon": {
+  "name": "연어",
+  "look": "연어(0.7×0.4)",
+  "hp": 3.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:salmon"
+  ],
+  "hunters": [
+   "minecraft:fox",
+   "minecraft:axolotl"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:sheep": {
+  "name": "양",
+  "look": "양(0.9×1.3)",
+  "hp": 8.0,
+  "atk": null,
+  "speed": 0.23,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "📝털 깎기(미구현)"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:sheep"
+  ],
+  "hunters": [
+   "minecraft:wolf"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:shulker": {
+  "name": "셜커",
+  "look": "껍데기 상자 몹(1×1)",
+  "hp": 30.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "낙하 피해 면역",
+   "📝껍데기 열고 닫기"
+  ],
+  "traitCodes": [
+   "fall"
+  ],
+  "allies": [
+   "minecraft:shulker"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "유도탄(부유 효과)",
+  "ability": "셜커 탄환 발사",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:silverfish": {
+  "name": "좀벌레",
+  "look": "좀벌레(0.4×0.3)",
+  "hp": 8.0,
+  "atk": 1.0,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "📝돌에 숨기",
+   "📝가루눈 위 걷기"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:silverfish",
+   "#minecraft:arthropod"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 1",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": []
+ },
+ "minecraft:skeleton": {
+  "name": "스켈레톤",
+  "look": "활 든 해골(0.6×1.99)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "햇빛에 탐(투구 있으면 투구 소모)",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "sun",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:skeleton",
+   "#minecraft:undead",
+   "#minecraft:skeletons"
+  ],
+  "hunters": [
+   "minecraft:wolf",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "화살 원거리",
+  "ability": "화살 발사",
+  "enemyType": true,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:skeleton_horse": {
+  "name": "해골말",
+  "look": "해골 말(1.4×1.6)",
+  "hp": 15.0,
+  "atk": null,
+  "speed": 0.2,
+  "speedVar": false,
+  "applied": 0.087,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "step",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:skeleton_horse",
+   "#minecraft:undead",
+   "minecraft:horse",
+   "minecraft:donkey",
+   "minecraft:mule"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:slime": {
+  "name": "슬라임",
+  "look": "초록 큐브(2.04×2.04)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": true,
+  "applied": 0.1,
+  "traits": [
+   "물·용암 위에 뜸"
+  ],
+  "traitCodes": [
+   "float"
+  ],
+  "allies": [
+   "minecraft:slime"
+  ],
+  "hunters": [
+   "minecraft:frog",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 박치기",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:sniffer": {
+  "name": "스니퍼",
+  "look": "거대 고대 생물(1.9×1.75)",
+  "hp": 14.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.043,
+  "traits": [
+   "📝냄새 맡아 씨앗 파기"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:sniffer"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:snow_golem": {
+  "name": "눈 골렘",
+  "look": "눈사람(0.7×1.9)",
+  "hp": 4.0,
+  "atk": null,
+  "speed": 0.2,
+  "speedVar": false,
+  "applied": 0.087,
+  "traits": [
+   "낙하 피해 면역",
+   "물·비에 피해",
+   "📝지나간 자리에 눈",
+   "가루눈 동결 면역"
+  ],
+  "traitCodes": [
+   "fall",
+   "whurt",
+   "freeze"
+  ],
+  "allies": [
+   "minecraft:snow_golem",
+   "minecraft:iron_golem",
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "눈덩이 투척",
+  "ability": "눈덩이 발사",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:spider": {
+  "name": "거미",
+  "look": "거미(1.4×0.9)",
+  "hp": 16.0,
+  "atk": null,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "벽 타기"
+  ],
+  "traitCodes": [
+   "climb"
+  ],
+  "allies": [
+   "minecraft:spider",
+   "#minecraft:arthropod"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 2",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:squid": {
+  "name": "오징어",
+  "look": "오징어(0.8×0.8)",
+  "hp": 10.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:squid",
+   "minecraft:glow_squid"
+  ],
+  "hunters": [
+   "minecraft:axolotl",
+   "minecraft:guardian",
+   "minecraft:elder_guardian"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음(먹물)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:stray": {
+  "name": "스트레이",
+  "look": "얼어붙은 해골(0.6×1.99)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "햇빛에 탐(투구 있으면 투구 소모)",
+   "📝가루눈 면역",
+   "📝슬로니스 화살(효과 미구현)",
+   "물속 호흡",
+   "가루눈 동결 면역",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "sun",
+   "wbreath",
+   "freeze",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:stray",
+   "#minecraft:undead",
+   "#minecraft:skeletons"
+  ],
+  "hunters": [
+   "minecraft:wolf",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "화살 원거리",
+  "ability": "화살 발사",
+  "enemyType": true,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:strider": {
+  "name": "스트라이더",
+  "look": "용암 위 걷는 말(0.9×1.7)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.175,
+  "speedVar": false,
+  "applied": 0.076,
+  "traits": [
+   "화염 면역",
+   "용암 위에 뜸",
+   "물·비에 피해"
+  ],
+  "traitCodes": [
+   "fireimm",
+   "lava",
+   "whurt"
+  ],
+  "allies": [
+   "minecraft:strider"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:sulfur_cube": {
+  "name": "유황 큐브",
+  "look": "노란 유황 큐브(2.04×2.04)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": true,
+  "applied": 0.1,
+  "traits": [
+   "물·용암 위에 뜸",
+   "📝블록 흡수·아이템 유인(미구현)"
+  ],
+  "traitCodes": [
+   "float"
+  ],
+  "allies": [
+   "minecraft:sulfur_cube"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 박치기(26.3 신규 몹)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:tadpole": {
+  "name": "올챙이",
+  "look": "올챙이(0.4×0.3)",
+  "hp": 6.0,
+  "atk": null,
+  "speed": 1.0,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:tadpole"
+  ],
+  "hunters": [
+   "minecraft:axolotl"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:trader_llama": {
+  "name": "상인 라마",
+  "look": "상인 라마(0.9×1.87)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": true,
+  "applied": 0.1,
+  "traits": [
+   "1블록 오르기(발판 높이 1.0)"
+  ],
+  "traitCodes": [
+   "step"
+  ],
+  "allies": [
+   "minecraft:trader_llama",
+   "minecraft:llama"
+  ],
+  "hunters": [],
+  "scares": [
+   "minecraft:wolf"
+  ],
+  "attack": "침 뱉기",
+  "ability": "침 발사",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:tropical_fish": {
+  "name": "열대어",
+  "look": "열대어(0.5×0.4)",
+  "hp": 3.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:tropical_fish"
+  ],
+  "hunters": [
+   "minecraft:fox",
+   "minecraft:axolotl"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:turtle": {
+  "name": "거북",
+  "look": "바다거북(1.2×0.4)",
+  "hp": 30.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡",
+   "📝산란"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath"
+  ],
+  "allies": [
+   "minecraft:turtle"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음(새끼만 사냥 대상)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:vex": {
+  "name": "벡스",
+  "look": "작은 날개 유령(0.4×0.8)",
+  "hp": 14.0,
+  "atk": 4.0,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "📝벽 통과(미구현)"
+  ],
+  "traitCodes": [
+   "fly"
+  ],
+  "allies": [
+   "minecraft:vex",
+   "#minecraft:illager",
+   "#minecraft:raiders"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "근접 검 4",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:villager": {
+  "name": "주민",
+  "look": "주민(0.6×1.95)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.5,
+  "speedVar": false,
+  "applied": 0.06,
+  "traits": [
+   "📝직업·거래(미구현)"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem",
+   "minecraft:copper_golem",
+   "minecraft:snow_golem"
+  ],
+  "hunters": [
+   "minecraft:zombie",
+   "minecraft:husk",
+   "minecraft:drowned",
+   "minecraft:zombie_villager",
+   "minecraft:vindicator",
+   "minecraft:vex",
+   "minecraft:evoker",
+   "minecraft:pillager",
+   "minecraft:illusioner",
+   "minecraft:ravager",
+   "minecraft:zoglin"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:vindicator": {
+  "name": "변절자",
+  "look": "도끼 일러저(0.6×1.95)",
+  "hp": 24.0,
+  "atk": 5.0,
+  "speed": 0.35,
+  "speedVar": false,
+  "applied": 0.14,
+  "traits": [],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:vindicator",
+   "#minecraft:illager",
+   "#minecraft:raiders"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "근접 도끼 5",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:wandering_trader": {
+  "name": "떠돌이 상인",
+  "look": "상인(0.6×1.95)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.06,
+  "traits": [
+   "📝투명화 마시기(미구현)"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:wandering_trader",
+   "minecraft:villager",
+   "minecraft:iron_golem",
+   "minecraft:copper_golem",
+   "minecraft:snow_golem"
+  ],
+  "hunters": [
+   "minecraft:zombie",
+   "minecraft:husk",
+   "minecraft:drowned",
+   "minecraft:zombie_villager",
+   "minecraft:vindicator",
+   "minecraft:vex",
+   "minecraft:evoker",
+   "minecraft:pillager",
+   "minecraft:illusioner",
+   "minecraft:ravager",
+   "minecraft:zoglin"
+  ],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:warden": {
+  "name": "워든",
+  "look": "심해 거인(0.9×2.9)",
+  "hp": 500.0,
+  "atk": 30.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "📝진동 감지",
+   "📝소리 폭발 근접"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:warden"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 30 + 음파 폭발 10",
+  "ability": "음파 폭발(전방 최대 15칸)",
+  "enemyType": true,
+  "targets": [
+   "*"
+  ]
+ },
+ "minecraft:witch": {
+  "name": "마녀",
+  "look": "마녀(0.6×1.95)",
+  "hp": 26.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "📝물약 마시기(미구현)"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:witch",
+   "#minecraft:raiders",
+   "#minecraft:illager"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "독·둔화·약화·즉시 피해 물약 투척",
+  "ability": "물약 투척(전방 대상에 효과)",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:wither": {
+  "name": "위더",
+  "look": "3머리 보스(0.9×3.5)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "비행(공중 이동, 낙하 피해 없음)",
+   "화염 면역",
+   "📝보스",
+   "낙하 피해 면역",
+   "물속 호흡",
+   "가루눈 동결 면역",
+   "독·재생 효과 면역",
+   "위더 효과 면역"
+  ],
+  "traitCodes": [
+   "fly",
+   "fireimm",
+   "fall",
+   "wbreath",
+   "freeze",
+   "nopoison",
+   "witherimm"
+  ],
+  "allies": [
+   "minecraft:wither",
+   "#minecraft:undead"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "위더 해골 발사",
+  "ability": "위더 해골 발사",
+  "enemyType": false,
+  "targets": [
+   "*"
+  ]
+ },
+ "minecraft:wither_skeleton": {
+  "name": "위더 스켈레톤",
+  "look": "검은 큰 해골(0.7×2.4)",
+  "hp": 20.0,
+  "atk": null,
+  "speed": 0.25,
+  "speedVar": false,
+  "applied": 0.109,
+  "traits": [
+   "화염 면역",
+   "접촉 시 상태이상",
+   "물속 호흡",
+   "독·재생 효과 면역",
+   "위더 효과 면역"
+  ],
+  "traitCodes": [
+   "fireimm",
+   "contact",
+   "wbreath",
+   "nopoison",
+   "witherimm"
+  ],
+  "allies": [
+   "minecraft:wither_skeleton",
+   "#minecraft:undead",
+   "#minecraft:skeletons"
+  ],
+  "hunters": [
+   "minecraft:wolf",
+   "minecraft:piglin",
+   "minecraft:piglin_brute",
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 + 위더 효과",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:wolf": {
+  "name": "늑대",
+  "look": "늑대(0.6×0.85)",
+  "hp": 8.0,
+  "atk": 4.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "📝길들이기(미구현)"
+  ],
+  "traitCodes": [],
+  "allies": [
+   "minecraft:wolf"
+  ],
+  "hunters": [],
+  "scares": [
+   "minecraft:skeleton",
+   "minecraft:stray",
+   "minecraft:bogged",
+   "minecraft:parched",
+   "minecraft:wither_skeleton",
+   "minecraft:fox",
+   "minecraft:rabbit"
+  ],
+  "attack": "근접 4(양·토끼·여우·해골 사냥)",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:zoglin": {
+  "name": "조글린",
+  "look": "좀비 호글린(1.4×1.4)",
+  "hp": 40.0,
+  "atk": 6.0,
+  "speed": 0.3,
+  "speedVar": false,
+  "applied": 0.13,
+  "traits": [
+   "📝무차별 공격",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:zoglin",
+   "#minecraft:undead"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "근접 6",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "*"
+  ]
+ },
+ "minecraft:zombie": {
+  "name": "좀비",
+  "look": "좀비(0.6×1.95)",
+  "hp": 20.0,
+  "atk": 3.0,
+  "speed": 0.23,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "햇빛에 탐(투구 있으면 투구 소모)",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "sun",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:zombie",
+   "#minecraft:undead"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "근접 3",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:zombie_horse": {
+  "name": "좀비말",
+  "look": "좀비 말(1.4×1.6)",
+  "hp": 25.0,
+  "atk": null,
+  "speed": 0.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "햇빛에 탐(투구 있으면 투구 소모)",
+   "1블록 오르기(발판 높이 1.0)",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "sun",
+   "step",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:zombie_horse",
+   "#minecraft:undead",
+   "minecraft:horse",
+   "minecraft:donkey",
+   "minecraft:mule"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "공격하지 않음",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:zombie_nautilus": {
+  "name": "좀비 앵무조개",
+  "look": "언데드 앵무조개(0.875×0.95)",
+  "hp": 15.0,
+  "atk": 3.0,
+  "speed": 1.1,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "수생(물 밖에서 질식)",
+   "수영 가속",
+   "물속 호흡",
+   "햇빛에 탐(투구 있으면 투구 소모)",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "aquatic",
+   "swim",
+   "wbreath",
+   "sun",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:zombie_nautilus",
+   "#minecraft:undead"
+  ],
+  "hunters": [],
+  "scares": [],
+  "attack": "근접 3",
+  "ability": "없음",
+  "enemyType": false,
+  "targets": null
+ },
+ "minecraft:zombie_villager": {
+  "name": "좀비 주민",
+  "look": "좀비 주민(0.6×1.95)",
+  "hp": 20.0,
+  "atk": 3.0,
+  "speed": 0.23,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "햇빛에 탐(투구 있으면 투구 소모)",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "sun",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:zombie_villager",
+   "#minecraft:undead"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [
+   "minecraft:villager",
+   "minecraft:wandering_trader"
+  ],
+  "attack": "근접 3",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": [
+   "minecraft:villager",
+   "minecraft:wandering_trader",
+   "minecraft:iron_golem"
+  ]
+ },
+ "minecraft:zombified_piglin": {
+  "name": "좀비 피글린",
+  "look": "좀비 피글린(0.6×1.95)",
+  "hp": 20.0,
+  "atk": 5.0,
+  "speed": 0.23,
+  "speedVar": false,
+  "applied": 0.1,
+  "traits": [
+   "화염 면역",
+   "📝맞으면 무리가 함께 분노",
+   "물속 호흡",
+   "독·재생 효과 면역"
+  ],
+  "traitCodes": [
+   "fireimm",
+   "wbreath",
+   "nopoison"
+  ],
+  "allies": [
+   "minecraft:zombified_piglin",
+   "#minecraft:undead",
+   "minecraft:piglin",
+   "minecraft:piglin_brute"
+  ],
+  "hunters": [
+   "minecraft:iron_golem",
+   "minecraft:snow_golem"
+  ],
+  "scares": [],
+  "attack": "근접 검 5",
+  "ability": "없음",
+  "enemyType": true,
+  "targets": []
+ }
+}

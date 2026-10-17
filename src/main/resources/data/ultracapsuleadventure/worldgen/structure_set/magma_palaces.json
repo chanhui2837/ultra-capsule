@@ -1,0 +1,15 @@
+{
+	"placement": {
+		"type": "minecraft:random_spread",
+		"salt": 8429173,
+		"separation": 16,
+		"spacing": 32
+	},
+	"structures": [
+		{
+			"structure": "UltraCapsuleAdventure:magma_palace",
+			"weight": 1
+		}
+	]
+}
+

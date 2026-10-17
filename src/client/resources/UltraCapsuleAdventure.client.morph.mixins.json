@@ -1,0 +1,14 @@
+{
+	"required": false,
+	"minVersion": "0.8",
+	"package": "com.UltraCapsuleAdventure.mixin.client.morph",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"AvatarHandMorphMixin",
+		"EntityRendererMorphStateMixin"
+	],
+	"injectors": {
+		"defaultRequire": 0
+	}
+}
+

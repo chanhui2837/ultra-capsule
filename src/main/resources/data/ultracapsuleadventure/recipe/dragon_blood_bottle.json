@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"H",
+		"B"
+	],
+	"key": {
+		"H": "UltraCapsuleAdventure:flame_heart",
+		"B": "minecraft:glass_bottle"
+	},
+	"result": {
+		"id": "UltraCapsuleAdventure:dragon_blood_bottle",
+		"count": 3
+	}
+}
+

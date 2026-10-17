@@ -1,0 +1,27 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.UltraCapsuleAdventure.mixin.client",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"LivingEntityRendererPetrifyMixin",
+		"LivingEntityStateGlowMixin",
+		"LivingEntityStatePetrifyMixin",
+		"LivingEntityStateRiderMixin",
+		"RenderTypesPetrifyMixin",
+		"WolfCollarLayerPetrifyMixin",
+		"CatCollarLayerPetrifyMixin",
+		"WolfTintPetrifyMixin",
+		"SheepWoolPetrifyMixin",
+		"VillagerHatPetrifyMixin",
+		"EyesLayerPetrifyMixin",
+		"HudVehicleHealthMixin",
+		"EntityRenderDispatcherMorphMixin",
+		"LevelExtractorPlayerStateMixin",
+		"FirstPersonHandsMorphMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
+

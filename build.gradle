@@ -13,7 +13,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"partnercap" {
+		"UltraCapsuleAdventure" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}
@@ -68,3 +68,4 @@ publishing {
 	repositories {
 	}
 }
+

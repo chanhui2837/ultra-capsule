@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "UltraCapsuleAdventure:item/flame_mong_spawn_egg"
+	}
+}
+

@@ -1,7 +1,8 @@
 {
 	"replace": false,
 	"values": [
-		"partnercap:silicate_sword",
-		"partnercap:silicate_axe"
+		"UltraCapsuleAdventure:silicate_sword",
+		"UltraCapsuleAdventure:silicate_axe"
 	]
 }
+

@@ -1,10 +1,11 @@
 {
 	"replace": false,
 	"values": [
-		"partnercap:silicate_pickaxe",
-		"partnercap:silicate_axe",
-		"partnercap:silicate_shovel",
-		"partnercap:silicate_hoe",
-		"partnercap:titan_capsule"
+		"UltraCapsuleAdventure:silicate_pickaxe",
+		"UltraCapsuleAdventure:silicate_axe",
+		"UltraCapsuleAdventure:silicate_shovel",
+		"UltraCapsuleAdventure:silicate_hoe",
+		"UltraCapsuleAdventure:titan_capsule"
 	]
 }
+

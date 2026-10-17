@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"GRG",
+		"RGR",
+		"GRG"
+	],
+	"key": {
+		"G": "minecraft:glass",
+		"R": "minecraft:redstone"
+	},
+	"result": {
+		"id": "UltraCapsuleAdventure:gamble_capsule",
+		"count": 1
+	}
+}
+

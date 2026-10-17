@@ -1,9 +1,10 @@
 {
 	"replace": false,
 	"values": [
-		"partnercap:silicate_sword",
-		"partnercap:silicate_axe",
-		"partnercap:gamble_capsule",
-		"partnercap:soul_capsule"
+		"UltraCapsuleAdventure:silicate_sword",
+		"UltraCapsuleAdventure:silicate_axe",
+		"UltraCapsuleAdventure:gamble_capsule",
+		"UltraCapsuleAdventure:soul_capsule"
 	]
 }
+

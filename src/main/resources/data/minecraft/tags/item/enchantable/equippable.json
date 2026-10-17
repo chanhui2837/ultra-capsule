@@ -1,9 +1,10 @@
 {
 	"replace": false,
 	"values": [
-		"partnercap:silicate_helmet",
-		"partnercap:silicate_chestplate",
-		"partnercap:silicate_leggings",
-		"partnercap:silicate_boots"
+		"UltraCapsuleAdventure:silicate_helmet",
+		"UltraCapsuleAdventure:silicate_chestplate",
+		"UltraCapsuleAdventure:silicate_leggings",
+		"UltraCapsuleAdventure:silicate_boots"
 	]
 }
+

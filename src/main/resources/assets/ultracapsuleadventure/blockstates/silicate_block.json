@@ -1,0 +1,11 @@
+{
+	"variants": {
+		"spent=false": {
+			"model": "UltraCapsuleAdventure:block/silicate_block"
+		},
+		"spent=true": {
+			"model": "UltraCapsuleAdventure:block/silicate_block"
+		}
+	}
+}
+

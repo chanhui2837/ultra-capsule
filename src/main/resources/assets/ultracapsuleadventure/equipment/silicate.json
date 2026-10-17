@@ -1,0 +1,15 @@
+{
+	"layers": {
+		"humanoid": [
+			{
+				"texture": "UltraCapsuleAdventure:silicate"
+			}
+		],
+		"humanoid_leggings": [
+			{
+				"texture": "UltraCapsuleAdventure:silicate"
+			}
+		]
+	}
+}
+

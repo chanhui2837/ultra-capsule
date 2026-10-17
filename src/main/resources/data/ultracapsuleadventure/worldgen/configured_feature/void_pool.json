@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:lake",
+	"config": {
+		"fluid": {
+			"type": "minecraft:simple",
+			"state": {
+				"Name": "UltraCapsuleAdventure:void_liquid",
+				"Properties": {
+					"level": "0"
+				}
+			}
+		},
+		"barrier": {
+			"type": "minecraft:simple",
+			"state": {
+				"Name": "minecraft:end_stone"
+			}
+		}
+	}
+}
+

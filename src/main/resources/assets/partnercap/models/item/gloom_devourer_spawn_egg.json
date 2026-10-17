@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "partnercap:item/gloom_devourer_spawn_egg"
-	}
-}

@@ -1,6 +1,7 @@
 {
 	"replace": false,
 	"values": [
-		"partnercap:titan_capsule"
+		"UltraCapsuleAdventure:titan_capsule"
 	]
 }
+
