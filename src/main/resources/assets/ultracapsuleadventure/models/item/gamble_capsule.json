@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "UltraCapsuleAdventure:item/gamble_capsule",
-		"particle": "UltraCapsuleAdventure:item/gamble_capsule"
+		"0": "ultracapsuleadventure:item/gamble_capsule",
+		"particle": "ultracapsuleadventure:item/gamble_capsule"
 	},
 	"elements": [
 		{

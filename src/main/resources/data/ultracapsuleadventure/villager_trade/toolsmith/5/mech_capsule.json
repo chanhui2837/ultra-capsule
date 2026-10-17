@@ -4,7 +4,7 @@
     "count": 10
   },
   "gives": {
-    "id": "UltraCapsuleAdventure:mech_capsule"
+    "id": "ultracapsuleadventure:mech_capsule"
   },
   "max_uses": 1,
   "reputation_discount": 0.05,

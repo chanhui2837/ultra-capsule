@@ -7,11 +7,11 @@
 		"S"
 	],
 	"key": {
-		"D": "UltraCapsuleAdventure:dragon_blood_bottle",
+		"D": "ultracapsuleadventure:dragon_blood_bottle",
 		"S": "minecraft:stick"
 	},
 	"result": {
-		"id": "UltraCapsuleAdventure:flame_sword",
+		"id": "ultracapsuleadventure:flame_sword",
 		"count": 1
 	}
 }

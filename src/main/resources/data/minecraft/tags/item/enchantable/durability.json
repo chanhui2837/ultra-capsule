@@ -1,15 +1,15 @@
 {
 	"replace": false,
 	"values": [
-		"UltraCapsuleAdventure:silicate_pickaxe",
-		"UltraCapsuleAdventure:silicate_axe",
-		"UltraCapsuleAdventure:silicate_shovel",
-		"UltraCapsuleAdventure:silicate_hoe",
-		"UltraCapsuleAdventure:silicate_sword",
-		"UltraCapsuleAdventure:silicate_helmet",
-		"UltraCapsuleAdventure:silicate_chestplate",
-		"UltraCapsuleAdventure:silicate_leggings",
-		"UltraCapsuleAdventure:silicate_boots"
+		"ultracapsuleadventure:silicate_pickaxe",
+		"ultracapsuleadventure:silicate_axe",
+		"ultracapsuleadventure:silicate_shovel",
+		"ultracapsuleadventure:silicate_hoe",
+		"ultracapsuleadventure:silicate_sword",
+		"ultracapsuleadventure:silicate_helmet",
+		"ultracapsuleadventure:silicate_chestplate",
+		"ultracapsuleadventure:silicate_leggings",
+		"ultracapsuleadventure:silicate_boots"
 	]
 }
 

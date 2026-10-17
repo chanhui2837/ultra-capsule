@@ -36,7 +36,7 @@ public class MorphArmRenderer {
 	private static final String[] RIGHT = { "right_arm", "right_front_leg", "right_wing", "right_hand", "arms" };
 	private static final String[] LEFT = { "left_arm", "left_front_leg", "left_wing", "left_hand", "arms" };
 
-	/** 팔 파트 하나만 가진 모델. setupAnim 기본 동작(resetPose)으로 항상 기본 자세로 그려진다 */
+	/** 팔 파트 하나만 가진 모델. */
 	private static final class ArmModel extends EntityModel<EntityRenderState> {
 		ArmModel(ModelPart arm) {
 			super(new ModelPart(List.of(), Map.of("arm", arm)));
@@ -69,11 +69,27 @@ public class MorphArmRenderer {
 			if (arm == null) {
 				return false;
 			}
+			// 몹 모델 팔 파트의 원래 변환(몸체 기준 오프셋)을 0으로 리셋해 바닐라 1인칭 팔 위치에 맞게 그린다.
+			float ox = arm.x, oy = arm.y, oz = arm.z;
+			float oxr = arm.xRot, oyr = arm.yRot, ozr = arm.zRot;
+			arm.x = 0;
+			arm.y = 0;
+			arm.z = 0;
+			arm.xRot = 0;
+			arm.yRot = 0;
+			arm.zRot = 0;
 			LivingEntityRenderState state = (LivingEntityRenderState) renderer.createRenderState(dummy, 1.0f);
 			Identifier tex = (Identifier) lr.getTextureLocation(state);
 			ArmModel am = CACHE.computeIfAbsent(arm, ArmModel::new);
 			collector.submitModel(am, state, pose, RenderTypes.entityCutout(tex), light,
 					OverlayTexture.NO_OVERLAY, -1);
+			// 원래 변환 복원 (원본 모델 렌더링에 영향 주지 않음)
+			arm.x = ox;
+			arm.y = oy;
+			arm.z = oz;
+			arm.xRot = oxr;
+			arm.yRot = oyr;
+			arm.zRot = ozr;
 			return true;
 		} catch (Exception e) {
 			return false;

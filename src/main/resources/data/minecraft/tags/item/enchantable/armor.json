@@ -1,10 +1,10 @@
 {
 	"replace": false,
 	"values": [
-		"UltraCapsuleAdventure:silicate_helmet",
-		"UltraCapsuleAdventure:silicate_chestplate",
-		"UltraCapsuleAdventure:silicate_leggings",
-		"UltraCapsuleAdventure:silicate_boots"
+		"ultracapsuleadventure:silicate_helmet",
+		"ultracapsuleadventure:silicate_chestplate",
+		"ultracapsuleadventure:silicate_leggings",
+		"ultracapsuleadventure:silicate_boots"
 	]
 }
 

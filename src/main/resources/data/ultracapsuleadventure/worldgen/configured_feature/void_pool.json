@@ -4,7 +4,7 @@
 		"fluid": {
 			"type": "minecraft:simple",
 			"state": {
-				"Name": "UltraCapsuleAdventure:void_liquid",
+				"Name": "ultracapsuleadventure:void_liquid",
 				"Properties": {
 					"level": "0"
 				}

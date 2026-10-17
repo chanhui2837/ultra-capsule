@@ -6,7 +6,7 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "UltraCapsuleAdventure:silicate_shard",
+					"name": "ultracapsuleadventure:silicate_shard",
 					"functions": [
 						{
 							"function": "minecraft:set_count",

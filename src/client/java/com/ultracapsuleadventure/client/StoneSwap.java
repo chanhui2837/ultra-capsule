@@ -11,7 +11,7 @@ public class StoneSwap {
 
 	public static volatile boolean ACTIVE = false;
 
-	public static final Identifier STONE = Identifier.fromNamespaceAndPath("UltraCapsuleAdventure",
+	public static final Identifier STONE = Identifier.fromNamespaceAndPath("ultracapsuleadventure",
 			"textures/entity/statue_stone.png");
 
 	private static final java.util.Map<java.util.UUID, Long> SETTLE = new java.util.HashMap<>();

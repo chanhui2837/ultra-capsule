@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "UltraCapsuleAdventure:item/medusa_head",
-		"particle": "UltraCapsuleAdventure:item/medusa_head"
+		"0": "ultracapsuleadventure:item/medusa_head",
+		"particle": "ultracapsuleadventure:item/medusa_head"
 	},
 	"elements": [
 		{

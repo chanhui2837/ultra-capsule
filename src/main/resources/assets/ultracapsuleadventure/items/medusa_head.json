@@ -1,7 +1,7 @@
 {
 	"model": {
 		"type": "minecraft:model",
-		"model": "UltraCapsuleAdventure:item/medusa_head"
+		"model": "ultracapsuleadventure:item/medusa_head"
 	}
 }
 

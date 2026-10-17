@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "UltraCapsuleAdventure:item/titan_capsule",
-		"particle": "UltraCapsuleAdventure:item/titan_capsule"
+		"0": "ultracapsuleadventure:item/titan_capsule",
+		"particle": "ultracapsuleadventure:item/titan_capsule"
 	},
 	"elements": [
 		{

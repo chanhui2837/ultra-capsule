@@ -1,7 +1,7 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "UltraCapsuleAdventure:item/dragon_blood_bottle"
+		"layer0": "ultracapsuleadventure:item/dragon_blood_bottle"
 	}
 }
 

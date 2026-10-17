@@ -1,7 +1,7 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "UltraCapsuleAdventure:item/silicate_boots"
+		"layer0": "ultracapsuleadventure:item/silicate_boots"
 	}
 }
 

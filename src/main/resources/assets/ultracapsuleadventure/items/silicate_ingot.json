@@ -1,7 +1,7 @@
 {
 	"model": {
 		"type": "minecraft:model",
-		"model": "UltraCapsuleAdventure:item/silicate_ingot"
+		"model": "ultracapsuleadventure:item/silicate_ingot"
 	}
 }
 

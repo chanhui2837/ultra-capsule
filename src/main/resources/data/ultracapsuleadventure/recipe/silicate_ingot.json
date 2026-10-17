@@ -2,18 +2,18 @@
 	"type": "minecraft:crafting_shapeless",
 	"category": "misc",
 	"ingredients": [
-		"UltraCapsuleAdventure:silicate_shard",
-		"UltraCapsuleAdventure:silicate_shard",
-		"UltraCapsuleAdventure:silicate_shard",
-		"UltraCapsuleAdventure:silicate_shard",
-		"UltraCapsuleAdventure:silicate_shard",
-		"UltraCapsuleAdventure:silicate_shard",
-		"UltraCapsuleAdventure:silicate_shard",
-		"UltraCapsuleAdventure:silicate_shard",
-		"UltraCapsuleAdventure:silicate_shard"
+		"ultracapsuleadventure:silicate_shard",
+		"ultracapsuleadventure:silicate_shard",
+		"ultracapsuleadventure:silicate_shard",
+		"ultracapsuleadventure:silicate_shard",
+		"ultracapsuleadventure:silicate_shard",
+		"ultracapsuleadventure:silicate_shard",
+		"ultracapsuleadventure:silicate_shard",
+		"ultracapsuleadventure:silicate_shard",
+		"ultracapsuleadventure:silicate_shard"
 	],
 	"result": {
-		"id": "UltraCapsuleAdventure:silicate_ingot",
+		"id": "ultracapsuleadventure:silicate_ingot",
 		"count": 1
 	}
 }

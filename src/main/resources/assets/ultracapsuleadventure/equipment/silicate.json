@@ -2,12 +2,12 @@
 	"layers": {
 		"humanoid": [
 			{
-				"texture": "UltraCapsuleAdventure:silicate"
+				"texture": "ultracapsuleadventure:silicate"
 			}
 		],
 		"humanoid_leggings": [
 			{
-				"texture": "UltraCapsuleAdventure:silicate"
+				"texture": "ultracapsuleadventure:silicate"
 			}
 		]
 	}

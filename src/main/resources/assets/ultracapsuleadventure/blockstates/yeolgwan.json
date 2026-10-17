@@ -1,7 +1,7 @@
 {
 	"variants": {
 		"": {
-			"model": "UltraCapsuleAdventure:block/yeolgwan"
+			"model": "ultracapsuleadventure:block/yeolgwan"
 		}
 	}
 }

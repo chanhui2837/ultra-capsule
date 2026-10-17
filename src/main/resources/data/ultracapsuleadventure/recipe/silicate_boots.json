@@ -6,10 +6,10 @@
 		"I I"
 	],
 	"key": {
-		"I": "UltraCapsuleAdventure:silicate_ingot"
+		"I": "ultracapsuleadventure:silicate_ingot"
 	},
 	"result": {
-		"id": "UltraCapsuleAdventure:silicate_boots",
+		"id": "ultracapsuleadventure:silicate_boots",
 		"count": 1
 	}
 }

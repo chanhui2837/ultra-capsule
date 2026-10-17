@@ -1,7 +1,7 @@
 {
 	"model": {
 		"type": "minecraft:model",
-		"model": "UltraCapsuleAdventure:item/silicate_chestplate"
+		"model": "ultracapsuleadventure:item/silicate_chestplate"
 	}
 }
 

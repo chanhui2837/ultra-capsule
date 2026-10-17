@@ -1,7 +1,7 @@
 {
 	"parent": "minecraft:item/handheld",
 	"textures": {
-		"layer0": "UltraCapsuleAdventure:item/silicate_axe"
+		"layer0": "ultracapsuleadventure:item/silicate_axe"
 	}
 }
 

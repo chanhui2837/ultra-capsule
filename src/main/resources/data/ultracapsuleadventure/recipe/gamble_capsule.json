@@ -11,7 +11,7 @@
 		"R": "minecraft:redstone"
 	},
 	"result": {
-		"id": "UltraCapsuleAdventure:gamble_capsule",
+		"id": "ultracapsuleadventure:gamble_capsule",
 		"count": 1
 	}
 }

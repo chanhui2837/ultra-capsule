@@ -8,10 +8,10 @@
 	],
 	"key": {
 		"I": "minecraft:iron_ingot",
-		"B": "UltraCapsuleAdventure:blue_clay"
+		"B": "ultracapsuleadventure:blue_clay"
 	},
 	"result": {
-		"id": "UltraCapsuleAdventure:stealth_capsule",
+		"id": "ultracapsuleadventure:stealth_capsule",
 		"count": 1
 	}
 }

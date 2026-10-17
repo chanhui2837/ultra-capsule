@@ -1,8 +1,8 @@
 {
 	"replace": false,
 	"values": [
-		"UltraCapsuleAdventure:void_liquid",
-		"UltraCapsuleAdventure:flowing_void_liquid"
+		"ultracapsuleadventure:void_liquid",
+		"ultracapsuleadventure:flowing_void_liquid"
 	]
 }
 

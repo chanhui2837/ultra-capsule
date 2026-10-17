@@ -7,10 +7,10 @@
 		"III"
 	],
 	"key": {
-		"I": "UltraCapsuleAdventure:silicate_ingot"
+		"I": "ultracapsuleadventure:silicate_ingot"
 	},
 	"result": {
-		"id": "UltraCapsuleAdventure:silicate_chestplate",
+		"id": "ultracapsuleadventure:silicate_chestplate",
 		"count": 1
 	}
 }

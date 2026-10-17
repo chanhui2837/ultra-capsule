@@ -11,7 +11,7 @@
 		"F": "minecraft:furnace"
 	},
 	"result": {
-		"id": "UltraCapsuleAdventure:disassemble_capsule",
+		"id": "ultracapsuleadventure:disassemble_capsule",
 		"count": 1
 	}
 }

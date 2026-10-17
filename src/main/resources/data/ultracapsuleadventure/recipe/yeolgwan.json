@@ -8,10 +8,10 @@
 	],
 	"key": {
 		"C": "minecraft:cobblestone",
-		"H": "UltraCapsuleAdventure:flame_heart"
+		"H": "ultracapsuleadventure:flame_heart"
 	},
 	"result": {
-		"id": "UltraCapsuleAdventure:yeolgwan",
+		"id": "ultracapsuleadventure:yeolgwan",
 		"count": 1
 	}
 }

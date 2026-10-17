@@ -1,7 +1,7 @@
 {
 	"variants": {
 		"": {
-			"model": "UltraCapsuleAdventure:block/void_liquid"
+			"model": "ultracapsuleadventure:block/void_liquid"
 		}
 	}
 }

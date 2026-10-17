@@ -1,7 +1,7 @@
 {
 	"model": {
 		"type": "minecraft:model",
-		"model": "UltraCapsuleAdventure:item/doppelganger_spawn_egg"
+		"model": "ultracapsuleadventure:item/doppelganger_spawn_egg"
 	}
 }
 

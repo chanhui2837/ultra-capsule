@@ -6,11 +6,11 @@
 		"B"
 	],
 	"key": {
-		"H": "UltraCapsuleAdventure:flame_heart",
+		"H": "ultracapsuleadventure:flame_heart",
 		"B": "minecraft:glass_bottle"
 	},
 	"result": {
-		"id": "UltraCapsuleAdventure:dragon_blood_bottle",
+		"id": "ultracapsuleadventure:dragon_blood_bottle",
 		"count": 3
 	}
 }

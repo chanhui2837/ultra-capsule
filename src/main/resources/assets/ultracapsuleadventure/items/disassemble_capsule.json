@@ -1,7 +1,7 @@
 {
 	"model": {
 		"type": "minecraft:model",
-		"model": "UltraCapsuleAdventure:item/disassemble_capsule"
+		"model": "ultracapsuleadventure:item/disassemble_capsule"
 	}
 }
 

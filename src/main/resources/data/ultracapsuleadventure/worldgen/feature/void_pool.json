@@ -21,7 +21,7 @@
 		}
 	},
 	"fluid": {
-		"id": "UltraCapsuleAdventure:void_liquid",
+		"id": "ultracapsuleadventure:void_liquid",
 		"properties": {
 			"level": "0"
 		}

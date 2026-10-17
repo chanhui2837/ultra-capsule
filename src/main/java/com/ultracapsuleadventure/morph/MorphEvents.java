@@ -32,6 +32,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import com.ultracapsuleadventure.medusa.Petrify;
+
 /**
  * 은신 변신(모프) 총괄.
  * - 황혼의 검 처치 → 은신 캡슐에 등록
@@ -1310,6 +1312,58 @@ public class MorphEvents {
 			});
 		} catch (Exception ignored) {
 		}
+
+		// 변신 우클릭 스킬 (빈 손 우클릭만) - Fabric API 버전 맞춤 필요
+		// TODO: UseItemCallback 시그니처 확인 후 복구
+		/*
+		try {
+			net.fabricmc.fabric.api.event.player.UseItemCallback.EVENT.register(
+					(player, world, hand, stack) -> {
+						if (!(player instanceof ServerPlayer sp)) {
+							return net.minecraft.world.InteractionResult.PASS;
+						}
+						String mid = morphId(sp);
+						if (mid.isEmpty() || !stack.isEmpty()) {
+							return net.minecraft.world.InteractionResult.PASS;
+						}
+						if (!(player.level() instanceof ServerLevel sl)) {
+							return net.minecraft.world.InteractionResult.PASS;
+						}
+						try {
+							return morphAbility(sp, sl, mid);
+						} catch (Exception ignored) {
+						}
+						return net.minecraft.world.InteractionResult.PASS;
+					});
+		} catch (Exception ignored) {
+		}
+		*/
+	}
+
+	/** 변신 우클릭 스킬 쿨다운 (ms) */
+	private static final Map<UUID, Long> LAST_ABILITY = new HashMap<>();
+	private static final long SKILL_COOL_MS = 600L;
+
+	private static net.minecraft.world.InteractionResult morphAbility(ServerPlayer sp, ServerLevel sl, String mid) {
+		try {
+			long now = System.currentTimeMillis();
+			Long last = LAST_ABILITY.get(sp.getUUID());
+			if (last != null && now - last < SKILL_COOL_MS) {
+				return net.minecraft.world.InteractionResult.PASS;
+			}
+			switch (mid) {
+				case "minecraft:enderman":
+					if (enderTeleport(sl, sp)) {
+						LAST_ABILITY.put(sp.getUUID(), now);
+						return net.minecraft.world.InteractionResult.SUCCESS;
+					}
+					break;
+				default:
+					break;
+			}
+		} catch (Exception ignored) {
+		}
+		return net.minecraft.world.InteractionResult.PASS;
 	}
 
 	// ---------- 틱 ----------
@@ -1851,6 +1905,42 @@ public class MorphEvents {
 			}
 		}
 		// 모습 렌더는 각 클라가 플레이어 자리에 직접 수행 (서버 꼭두각시 없음)
+
+		// 메두사: 눈을 쳐다보면 석화 (패시브, 5틱마다)
+		if (mid.equals("minecraft:medusa") && player.tickCount % 5 == 0) {
+			try {
+				Vec3 eye = player.getEyePosition();
+				Vec3 look = player.getLookAngle();
+				double range = Petrify.GAZE_RANGE;
+				net.minecraft.world.phys.AABB box = player.getBoundingBox()
+						.expandTowards(look.scale(range)).inflate(1.0);
+				for (Entity e : sl.getEntities(player, box,
+						x -> x instanceof LivingEntity le && le.isAlive() && !x.isSpectator() && x != player)) {
+					try {
+						LivingEntity le = (LivingEntity) e;
+						Vec3 c = le.getBoundingBox().getCenter();
+						double t = c.subtract(eye).dot(look);
+						if (t < 0.0 || t > range) {
+							continue;
+						}
+						if (eye.add(look.scale(t)).distanceTo(c)
+								> Math.max(le.getBbWidth(), le.getBbHeight()) * 0.6 + 0.4) {
+							continue;
+						}
+						if (!player.hasLineOfSight(le)) {
+							continue;
+						}
+						Petrify.petrify(sl, le, (com.ultracapsuleadventure.medusa.MedusaEntity) null);
+						sl.sendParticles(ParticleTypes.PORTAL, le.getX(), le.getY() + 1.0, le.getZ(),
+								16, 0.4, 0.8, 0.4, 0.2);
+						sl.playSound(null, player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT,
+								SoundSource.PLAYERS, 0.5f, 1.0f);
+					} catch (Exception ignored) {
+					}
+				}
+			} catch (Exception ignored) {
+			}
+		}
 	}
 
 	private static void creeperBlast(ServerLevel sl, ServerPlayer player) {
@@ -1943,6 +2033,7 @@ public class MorphEvents {
 			case "minecraft:shulker" -> "shulker_bullet";
 			case "minecraft:ender_dragon" -> "dragon_fireball";
 			case "minecraft:wither" -> "wither_skull";
+			case "com.ultracapsuleadventure:mech_robot" -> "small_fireball";
 			default -> null;
 		};
 	}
@@ -2228,6 +2319,30 @@ public class MorphEvents {
 					ABILITY_COOL.put(p.getUUID(), now + 60);
 					return true;
 				}
+				case "minecraft:medusa" -> {
+					LivingEntity t = lookTarget(sl, p, 12.0);
+					if (t == null) {
+						return true;
+					}
+					Petrify.petrify(sl, t, (com.ultracapsuleadventure.medusa.MedusaEntity) null);
+					sl.sendParticles(ParticleTypes.PORTAL, t.getX(), t.getY() + 1.0, t.getZ(), 24, 0.4, 0.8, 0.4, 0.2);
+					sl.playSound(null, p.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0f, 1.0f);
+					ABILITY_COOL.put(p.getUUID(), now + 80);
+					return true;
+				}
+				case "com.ultracapsuleadventure:gloom_devourer" -> {
+					LivingEntity t = lookTarget(sl, p, 10.0);
+					if (t == null) {
+						return true;
+					}
+					t.hurtServer(sl, sl.damageSources().mobAttack(p), 8.0f);
+					t.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 1, false, true, true));
+					sl.sendParticles(ParticleTypes.SMOKE, t.getX(), t.getY() + t.getBbHeight() * 0.5, t.getZ(),
+							20, 0.3, 0.4, 0.3, 0.05);
+					sl.playSound(null, p.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 0.8f, 1.2f);
+					ABILITY_COOL.put(p.getUUID(), now + 100);
+					return true;
+				}
 				default -> {
 					return false;
 				}
@@ -2350,6 +2465,8 @@ public class MorphEvents {
 						new MobEffectInstance(MobEffects.POISON, 200, 0, false, true, true));
 				case "minecraft:pufferfish" -> victim.addEffect(
 						new MobEffectInstance(MobEffects.POISON, 60, 0, false, true, true));
+				case "minecraft:medusa" -> victim.addEffect(
+						new MobEffectInstance(MobEffects.POISON, 100, 0, false, true, true));
 				default -> {
 				}
 			}

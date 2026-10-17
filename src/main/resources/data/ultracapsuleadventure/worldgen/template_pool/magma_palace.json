@@ -3,7 +3,7 @@
 		{
 			"element": {
 				"element_type": "minecraft:single_pool_element",
-				"location": "UltraCapsuleAdventure:magma_palace",
+				"location": "ultracapsuleadventure:magma_palace",
 				"processors": {
 					"processors": []
 				},

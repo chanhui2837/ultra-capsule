@@ -7,11 +7,11 @@
 		"S"
 	],
 	"key": {
-		"B": "UltraCapsuleAdventure:blue_clay",
+		"B": "ultracapsuleadventure:blue_clay",
 		"S": "minecraft:stick"
 	},
 	"result": {
-		"id": "UltraCapsuleAdventure:twilight_sword",
+		"id": "ultracapsuleadventure:twilight_sword",
 		"count": 1
 	}
 }

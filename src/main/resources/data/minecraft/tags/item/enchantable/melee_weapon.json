@@ -1,10 +1,10 @@
 {
 	"replace": false,
 	"values": [
-		"UltraCapsuleAdventure:silicate_sword",
-		"UltraCapsuleAdventure:silicate_axe",
-		"UltraCapsuleAdventure:gamble_capsule",
-		"UltraCapsuleAdventure:soul_capsule"
+		"ultracapsuleadventure:silicate_sword",
+		"ultracapsuleadventure:silicate_axe",
+		"ultracapsuleadventure:gamble_capsule",
+		"ultracapsuleadventure:soul_capsule"
 	]
 }
 
