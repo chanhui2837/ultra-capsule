@@ -2033,7 +2033,6 @@ public class MorphEvents {
 			case "minecraft:shulker" -> "shulker_bullet";
 			case "minecraft:ender_dragon" -> "dragon_fireball";
 			case "minecraft:wither" -> "wither_skull";
-			case "ultracapsuleadventure:mech_robot" -> "small_fireball";
 			case "ultracapsuleadventure:flame_mong" -> "fireball";
 			default -> null;
 		};
@@ -2318,6 +2317,60 @@ public class MorphEvents {
 					sl.sendParticles(ParticleTypes.POOF, p.getX(), p.getY() + 0.5, p.getZ(), 30, 1.5, 0.3, 1.5, 0.05);
 					sl.playSound(null, p.blockPosition(), SoundEvents.RAVAGER_ROAR, SoundSource.PLAYERS, 1.0f, 1.0f);
 					ABILITY_COOL.put(p.getUUID(), now + 60);
+					return true;
+				}
+				case "ultracapsuleadventure:mech_robot" -> {
+					// 메카 로봇 레이저 빔 (MechRobotEntity.tryFire 방식과 동일)
+					Vec3 eye = p.getEyePosition();
+					Vec3 dir = p.getLookAngle();
+					Vec3 end = eye.add(dir.scale(64.0));
+					Vec3 blockPos = end;
+					double range = 64.0;
+					LivingEntity hit = null;
+					double bestT = range;
+					try {
+						net.minecraft.world.phys.AABB sweep = new net.minecraft.world.phys.AABB(eye, blockPos).inflate(2.0);
+						for (Entity e : sl.getEntities(p, sweep,
+								x -> x instanceof LivingEntity living && living.isAlive())) {
+							try {
+								if (e == p) continue;
+								Vec3 toEnt = new Vec3(e.getX() - eye.x, (e.getY() + e.getBbHeight() * 0.5) - eye.y,
+										e.getZ() - eye.z);
+								double t = toEnt.dot(dir);
+								if (t < 0 || t > bestT) continue;
+								Vec3 closest = eye.add(dir.scale(t));
+								Vec3 center = new Vec3(e.getX(), e.getY() + e.getBbHeight() * 0.5, e.getZ());
+								if (closest.distanceTo(center) < e.getBbWidth() + 0.9) {
+									hit = (LivingEntity) e;
+									bestT = t;
+								}
+							} catch (Exception ignored) {}
+						}
+					} catch (Exception ignored) {}
+					Vec3 beamEnd = (hit != null)
+							? new Vec3(hit.getX(), hit.getY() + hit.getBbHeight() * 0.5, hit.getZ())
+							: blockPos;
+					try {
+						double len = eye.distanceTo(beamEnd);
+						int steps = Math.max(2, (int) (len / 0.75));
+						for (int i = 0; i <= steps; i++) {
+							Vec3 pt = eye.lerp(beamEnd, i / (double) steps);
+							sl.sendParticles(ParticleTypes.ELECTRIC_SPARK, pt.x, pt.y, pt.z, 2, 0.05, 0.05, 0.05, 0.0);
+							if (i % 2 == 0) {
+								sl.sendParticles(ParticleTypes.END_ROD, pt.x, pt.y, pt.z, 1, 0.02, 0.02, 0.02, 0.0);
+							}
+						}
+					} catch (Exception ignored) {}
+					if (hit != null) {
+						try {
+							hit.hurtServer(sl, sl.damageSources().mobAttack(p), 150.0f);
+						} catch (Exception ignored) {}
+						sl.sendParticles(ParticleTypes.SONIC_BOOM, beamEnd.x, beamEnd.y, beamEnd.z, 3, 0.3, 0.3, 0.3, 0.0);
+					} else {
+						sl.sendParticles(ParticleTypes.SMOKE, beamEnd.x, beamEnd.y, beamEnd.z, 6, 0.2, 0.2, 0.2, 0.02);
+					}
+					sl.playSound(null, p.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 1.5f, 0.8f);
+					ABILITY_COOL.put(p.getUUID(), now + 25);
 					return true;
 				}
 				case "ultracapsuleadventure:medusa" -> {
