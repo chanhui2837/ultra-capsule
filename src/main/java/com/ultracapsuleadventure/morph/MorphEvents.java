@@ -1907,7 +1907,7 @@ public class MorphEvents {
 		// 모습 렌더는 각 클라가 플레이어 자리에 직접 수행 (서버 꼭두각시 없음)
 
 		// 메두사: 눈을 쳐다보면 석화 (패시브, 5틱마다)
-		if (mid.equals("minecraft:medusa") && player.tickCount % 5 == 0) {
+		if (mid.equals("ultracapsuleadventure:medusa") && player.tickCount % 5 == 0) {
 			try {
 				Vec3 eye = player.getEyePosition();
 				Vec3 look = player.getLookAngle();
@@ -2033,7 +2033,7 @@ public class MorphEvents {
 			case "minecraft:shulker" -> "shulker_bullet";
 			case "minecraft:ender_dragon" -> "dragon_fireball";
 			case "minecraft:wither" -> "wither_skull";
-			case "com.ultracapsuleadventure:mech_robot" -> "small_fireball";
+			case "ultracapsuleadventure:mech_robot" -> "small_fireball";
 			default -> null;
 		};
 	}
@@ -2319,7 +2319,7 @@ public class MorphEvents {
 					ABILITY_COOL.put(p.getUUID(), now + 60);
 					return true;
 				}
-				case "minecraft:medusa" -> {
+				case "ultracapsuleadventure:medusa" -> {
 					LivingEntity t = lookTarget(sl, p, 12.0);
 					if (t == null) {
 						return true;
@@ -2330,7 +2330,7 @@ public class MorphEvents {
 					ABILITY_COOL.put(p.getUUID(), now + 80);
 					return true;
 				}
-				case "com.ultracapsuleadventure:gloom_devourer" -> {
+				case "ultracapsuleadventure:gloom_devourer" -> {
 					LivingEntity t = lookTarget(sl, p, 10.0);
 					if (t == null) {
 						return true;
@@ -2465,7 +2465,7 @@ public class MorphEvents {
 						new MobEffectInstance(MobEffects.POISON, 200, 0, false, true, true));
 				case "minecraft:pufferfish" -> victim.addEffect(
 						new MobEffectInstance(MobEffects.POISON, 60, 0, false, true, true));
-				case "minecraft:medusa" -> victim.addEffect(
+				case "ultracapsuleadventure:medusa" -> victim.addEffect(
 						new MobEffectInstance(MobEffects.POISON, 100, 0, false, true, true));
 				default -> {
 				}
