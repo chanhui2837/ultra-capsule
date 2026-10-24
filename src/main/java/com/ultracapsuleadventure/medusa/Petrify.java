@@ -290,7 +290,7 @@ public class Petrify {
 				} catch (Exception ignored) {
 				}
 				try {
-					dragon.kill();
+					dragon.kill(level);
 				} catch (Exception ignored) {
 				}
 			}
