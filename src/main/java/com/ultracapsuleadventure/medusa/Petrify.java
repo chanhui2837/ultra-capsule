@@ -10,6 +10,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
@@ -129,6 +130,9 @@ public class Petrify {
 			if (!(e instanceof LivingEntity living)) {
 				return false;
 			}
+			if (e instanceof EnderDragon) {
+				return false;
+			}
 			if (!living.isAlive() || living.isRemoved()) {
 				return false;
 			}
@@ -174,6 +178,32 @@ public class Petrify {
 	/** 서로 마주봄: 메두사→대상, 대상→메두사 모두 */
 	public static boolean mutualGaze(MedusaEntity medusa, LivingEntity victim) {
 		try {
+			if (victim instanceof EnderDragon) {
+				// 엔더드래곤은 일반 석화 대상이 아니라, 메두사 최종 타격용으로만 별도 처리한다.
+				if (!victim.isAlive() || victim.isRemoved()) {
+					return false;
+				}
+				if (medusa instanceof PetrifiedAccess access && access.UltraCapsuleAdventure$isPetrified()) {
+					return false;
+				}
+				Vec3 mEye = medusa.getEyePosition();
+				Vec3 vEye = victim.getEyePosition();
+				if (mEye.distanceTo(vEye) > GAZE_RANGE) {
+					return false;
+				}
+				boolean mLook = lookingAt(medusa, vEye, GAZE_COS);
+				boolean vLook = lookingAt(victim, mEye, GAZE_COS);
+				if (!mLook || !vLook) {
+					return false;
+				}
+				try {
+					if (!medusa.hasLineOfSight(victim)) {
+						return false;
+					}
+				} catch (Exception ignored) {
+				}
+				return true;
+			}
 			if (!canPetrify(victim)) {
 				return false;
 			}
@@ -217,6 +247,55 @@ public class Petrify {
 			}
 			return true;
 		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	/**
+	 * 엔더드래곤 전용: 일반 석화 대신 체력 피해를 입힌다.
+	 * 마지막 타격이 메두사 시선/머리라면, 그때만 돌 덮개 처형을 수행한다.
+	 */
+	public static boolean applyMedusaDragonDamage(ServerLevel level, LivingEntity victim, MedusaEntity medusa,
+			boolean fromGaze, boolean fromHead) {
+		try {
+			if (!(victim instanceof EnderDragon dragon)) {
+				return false;
+			}
+			if (!dragon.isAlive() || dragon.isRemoved()) {
+				return false;
+			}
+			float damage = (float) Math.max(1.0D, Math.min(dragon.getMaxHealth() * 0.18D, 18.0D));
+			DamageSource source = medusa == null ? level.damageSources().magic() : level.damageSources().mobAttack(medusa);
+			boolean dealt = dragon.hurtServer(level, source, damage);
+			if (!dealt) {
+				return false;
+			}
+			if (dragon.isDeadOrDying() && (fromGaze || fromHead)) {
+				try {
+					dragon.setHealth(0.0F);
+				} catch (Exception ignored) {
+				}
+				try {
+					dragon.setDeltaMovement(0.0D, 0.0D, 0.0D);
+				} catch (Exception ignored) {
+				}
+				try {
+					dragon.setNoAi(true);
+				} catch (Exception ignored) {
+				}
+				try {
+					if (dragon instanceof PetrifiedAccess access) {
+						access.UltraCapsuleAdventure$setPetrified(true);
+					}
+				} catch (Exception ignored) {
+				}
+				try {
+					dragon.kill();
+				} catch (Exception ignored) {
+				}
+			}
+			return true;
+		} catch (Exception ignored) {
 			return false;
 		}
 	}
@@ -511,5 +590,6 @@ public class Petrify {
 		}
 	}
 }
+
 
 

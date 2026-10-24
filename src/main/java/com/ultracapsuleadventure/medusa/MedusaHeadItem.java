@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +38,7 @@ public class MedusaHeadItem extends Item {
 
 	private static CompoundTag getRoot(ItemStack stack) {
 		net.minecraft.world.item.component.CustomData custom = stack.getOrDefault(DataComponents.CUSTOM_DATA,
-				net.minecraft.world.item.component.CustomData.EMPTY);
+			net.minecraft.world.item.component.CustomData.EMPTY);
 		CompoundTag root = custom.copyTag();
 		if (!root.contains(ROOT_KEY)) {
 			return new CompoundTag();
@@ -47,7 +48,7 @@ public class MedusaHeadItem extends Item {
 
 	private static void setRoot(ItemStack stack, CompoundTag cap) {
 		net.minecraft.world.item.component.CustomData custom = stack.getOrDefault(DataComponents.CUSTOM_DATA,
-				net.minecraft.world.item.component.CustomData.EMPTY);
+			net.minecraft.world.item.component.CustomData.EMPTY);
 		CompoundTag root = custom.copyTag();
 		root.put(ROOT_KEY, cap);
 		stack.set(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(root));
@@ -281,7 +282,9 @@ public class MedusaHeadItem extends Item {
 		}
 		boolean ok = false;
 		try {
-			if (hit instanceof ServerPlayer sp) {
+			if (hit instanceof EnderDragon dragon) {
+				ok = Petrify.applyMedusaDragonDamage(sl, dragon, null, false, true);
+			} else if (hit instanceof ServerPlayer sp) {
 				ok = Petrify.petrifyPlayer(sl, sp, null) != null;
 			} else {
 				java.util.UUID me = null;

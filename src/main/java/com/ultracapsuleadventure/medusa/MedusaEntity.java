@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -243,6 +244,15 @@ public class MedusaEntity extends net.minecraft.world.entity.monster.Monster {
 					continue;
 				}
 				try {
+					if (le instanceof EnderDragon) {
+						if (Petrify.applyMedusaDragonDamage(sl, le, this, true, false)) {
+							setGazeFlash(20);
+						}
+						continue;
+					}
+				} catch (Exception ignored) {
+				}
+				try {
 					if (medusaOwner != null && isSoulFriend(medusaOwner, le)) {
 						try {
 							if (lockKey != null) {
@@ -353,5 +363,6 @@ public class MedusaEntity extends net.minecraft.world.entity.monster.Monster {
 		return false;
 	}
 }
+
 
 
