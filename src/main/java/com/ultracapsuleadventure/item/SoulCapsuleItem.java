@@ -248,7 +248,7 @@ public class SoulCapsuleItem extends Item {
 			java.util.function.Consumer<Component> lines, TooltipFlag flag) {
 		int c = SoulData.count(stack);
 		if (c == 0) {
-			lines.accept(Component.literal("비어있음 - 불길의 검으로 처치 시 영혼 저장"));
+			lines.accept(Component.literal("비어있음 - 영혼의 검으로 처치 시 영혼 저장"));
 		} else {
 			lines.accept(Component.literal("영혼 " + c + "기 보관중"));
 			java.util.Map<String, Integer> byType = new java.util.LinkedHashMap<>();

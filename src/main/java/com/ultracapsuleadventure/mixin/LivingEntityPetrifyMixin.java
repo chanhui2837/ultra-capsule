@@ -26,11 +26,23 @@ public abstract class LivingEntityPetrifyMixin implements PetrifiedAccess {
 	@Unique
 	private static final EntityDataAccessor<Boolean> UltraCapsuleAdventure_PETRIFIED = SynchedEntityData.defineId(
 			LivingEntity.class, EntityDataSerializers.BOOLEAN);
+	@Unique
+	private static final EntityDataAccessor<Float> UltraCapsuleAdventure_HEAD_ROT = SynchedEntityData.defineId(
+			LivingEntity.class, EntityDataSerializers.FLOAT);
+	@Unique
+	private static final EntityDataAccessor<Float> UltraCapsuleAdventure_BODY_ROT = SynchedEntityData.defineId(
+			LivingEntity.class, EntityDataSerializers.FLOAT);
+	@Unique
+	private static final EntityDataAccessor<Float> UltraCapsuleAdventure_ATTACK_ANIM = SynchedEntityData.defineId(
+			LivingEntity.class, EntityDataSerializers.FLOAT);
 
 	@Inject(method = "defineSynchedData", at = @At("TAIL"))
 	private void UltraCapsuleAdventure$definePetrified(SynchedEntityData.Builder builder, CallbackInfo ci) {
 		try {
 			builder.define(UltraCapsuleAdventure_PETRIFIED, false);
+			builder.define(UltraCapsuleAdventure_HEAD_ROT, 0f);
+			builder.define(UltraCapsuleAdventure_BODY_ROT, 0f);
+			builder.define(UltraCapsuleAdventure_ATTACK_ANIM, 0f);
 		} catch (Exception ignored) {
 		}
 	}
@@ -50,6 +62,39 @@ public abstract class LivingEntityPetrifyMixin implements PetrifiedAccess {
 		try {
 			LivingEntity self = (LivingEntity) (Object) this;
 			self.getEntityData().set(UltraCapsuleAdventure_PETRIFIED, petrified);
+			if (petrified) {
+				self.getEntityData().set(UltraCapsuleAdventure_HEAD_ROT, self.yHeadRot);
+				self.getEntityData().set(UltraCapsuleAdventure_BODY_ROT, self.yBodyRot);
+				// Minecraft 26.3 LivingEntity does not expose an attack-animation getter.
+				// The render-state/model pose is frozen client-side; keep this synced fallback neutral.
+				self.getEntityData().set(UltraCapsuleAdventure_ATTACK_ANIM, 0.0f);
+			}
+		} catch (Exception ignored) {
+		}
+	}
+
+	@Override
+	public float UltraCapsuleAdventure$getFrozenAttackAnim() {
+		try {
+			return ((LivingEntity) (Object) this).getEntityData().get(UltraCapsuleAdventure_ATTACK_ANIM);
+		} catch (Exception e) {
+			return 0f;
+		}
+	}
+
+	@Override
+	public void UltraCapsuleAdventure$applyFrozenRotation() {
+		try {
+			LivingEntity self = (LivingEntity) (Object) this;
+			if (!self.getEntityData().get(UltraCapsuleAdventure_PETRIFIED)) {
+				return;
+			}
+			float head = self.getEntityData().get(UltraCapsuleAdventure_HEAD_ROT);
+			float body = self.getEntityData().get(UltraCapsuleAdventure_BODY_ROT);
+			self.yHeadRot = head;
+			self.yHeadRotO = head;
+			self.yBodyRot = body;
+			self.yBodyRotO = body;
 		} catch (Exception ignored) {
 		}
 	}
@@ -66,6 +111,17 @@ public abstract class LivingEntityPetrifyMixin implements PetrifiedAccess {
 					self.deathTime = 0;
 				} catch (Exception ignored) {
 				}
+				// 클라 스폰/월드 재입장 시 yHeadRot·yBodyRot이 기본값(yRot)으로 초기화되는 문제 대응.
+				// 서버에서 SynchedEntityData로 동기화된 값을 클라 엔티티에 적용해 렌더 직전 고정.
+				try {
+					LivingEntity self = (LivingEntity) (Object) this;
+					var data = self.getEntityData();
+					self.yHeadRot = data.get(UltraCapsuleAdventure_HEAD_ROT);
+					self.yHeadRotO = self.yHeadRot;
+					self.yBodyRot = data.get(UltraCapsuleAdventure_BODY_ROT);
+					self.yBodyRotO = self.yBodyRot;
+				} catch (Exception ignored) {
+				}
 				ci.cancel();
 			}
 		} catch (Exception ignored) {
@@ -76,6 +132,20 @@ public abstract class LivingEntityPetrifyMixin implements PetrifiedAccess {
 	private void UltraCapsuleAdventure$writePetrified(ValueOutput out, CallbackInfo ci) {
 		try {
 			out.putBoolean("Petrified", UltraCapsuleAdventure$isPetrified());
+			if (UltraCapsuleAdventure$isPetrified()) {
+				LivingEntity self = (LivingEntity) (Object) this;
+				out.putFloat("UCA_yRot", self.getYRot());
+				out.putFloat("UCA_xRot", self.getXRot());
+				out.putFloat("UCA_yHeadRot", self.yHeadRot);
+				out.putFloat("UCA_yBodyRot", self.yBodyRot);
+				out.putFloat("UCA_yHeadRotO", self.yHeadRotO);
+				out.putFloat("UCA_yBodyRotO", self.yBodyRotO);
+				out.putFloat("UCA_AttackAnim", UltraCapsuleAdventure$getFrozenAttackAnim());
+				out.putString("UCA_Pose", self.getPose().name());
+				out.putBoolean("UCA_Aggressive", self instanceof net.minecraft.world.entity.Mob mob && mob.isAggressive());
+				out.putBoolean("UCA_UsingItem", self.isUsingItem());
+				out.putString("UCA_UsedHand", self.getUsedItemHand().name());
+			}
 		} catch (Exception ignored) {
 		}
 	}
@@ -85,6 +155,35 @@ public abstract class LivingEntityPetrifyMixin implements PetrifiedAccess {
 		try {
 			if (in.getBooleanOr("Petrified", false)) {
 				UltraCapsuleAdventure$setPetrified(true);
+				LivingEntity self = (LivingEntity) (Object) this;
+				float yaw = in.getFloatOr("UCA_yRot", self.getYRot());
+				float pitch = in.getFloatOr("UCA_xRot", self.getXRot());
+				self.setYRot(yaw);
+				self.setXRot(pitch);
+				self.yHeadRot = in.getFloatOr("UCA_yHeadRot", yaw);
+				self.yBodyRot = in.getFloatOr("UCA_yBodyRot", yaw);
+				self.yHeadRotO = in.getFloatOr("UCA_yHeadRotO", yaw);
+				self.yBodyRotO = in.getFloatOr("UCA_yBodyRotO", yaw);
+				try {
+					self.getEntityData().set(UltraCapsuleAdventure_HEAD_ROT, self.yHeadRot);
+					self.getEntityData().set(UltraCapsuleAdventure_BODY_ROT, self.yBodyRot);
+					self.getEntityData().set(UltraCapsuleAdventure_ATTACK_ANIM, in.getFloatOr("UCA_AttackAnim", 0f));
+				} catch (Exception ignored) {
+				}
+				try {
+					self.setPose(net.minecraft.world.entity.Pose.valueOf(in.getString("UCA_Pose").orElse("STANDING")));
+				} catch (Exception ignored) {
+				}
+				if (self instanceof net.minecraft.world.entity.Mob mob) {
+					mob.setAggressive(in.getBooleanOr("UCA_Aggressive", mob.isAggressive()));
+				}
+				if (in.getBooleanOr("UCA_UsingItem", false)) {
+					try {
+						net.minecraft.world.InteractionHand hand = net.minecraft.world.InteractionHand.valueOf(in.getString("UCA_UsedHand").orElse("MAIN_HAND"));
+						if (!self.getItemInHand(hand).isEmpty()) self.startUsingItem(hand);
+					} catch (Exception ignored) {
+					}
+				}
 			}
 		} catch (Exception ignored) {
 		}

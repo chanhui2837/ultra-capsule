@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import com.ultracapsuleadventure.item.FlameSwordItem;
 import com.ultracapsuleadventure.item.ModItems;
+import com.ultracapsuleadventure.item.SoulSwordItem;
 import com.ultracapsuleadventure.item.UltraCapsuleAdventureItem;
 import com.ultracapsuleadventure.item.SoulCapsuleItem;
 import com.ultracapsuleadventure.util.TameUtil;
@@ -37,7 +37,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * 불길의 검 처치 시 영혼 흡수 (소울 캡슐에 저장 + 흡수 모션).
+ * 영혼의 검 처치 시 영혼 흡수 (소울 캡슐에 저장 + 흡수 모션).
  */
 public class SoulEvents {
 
@@ -509,9 +509,9 @@ public class SoulEvents {
 				}
 				if (needSword) {
 					ItemStack weapon = killer.getMainHandItem();
-					if (!(weapon.getItem() instanceof FlameSwordItem)) {
+					if (!(weapon.getItem() instanceof SoulSwordItem)) {
 						weapon = killer.getOffhandItem();
-						if (!(weapon.getItem() instanceof FlameSwordItem)) {
+						if (!(weapon.getItem() instanceof SoulSwordItem)) {
 							return;
 						}
 					}

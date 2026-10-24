@@ -173,6 +173,7 @@ public class YeolgwanBlock extends Block implements EntityBlock {
 			// 모래/흙계
 			SMELT.put(Items.SAND, new ItemStack(Items.GLASS));
 			SMELT.put(Items.RED_SAND, new ItemStack(Items.GLASS));
+			SMELT.put(Items.SOUL_SAND, new ItemStack(Items.GLASS));
 			SMELT.put(Items.COBBLESTONE, new ItemStack(Items.STONE));
 			SMELT.put(Items.COBBLED_DEEPSLATE, new ItemStack(Items.DEEPSLATE));
 			SMELT.put(Items.SANDSTONE, new ItemStack(Items.SMOOTH_SANDSTONE));

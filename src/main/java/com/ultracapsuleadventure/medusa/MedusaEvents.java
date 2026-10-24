@@ -2,18 +2,24 @@ package com.ultracapsuleadventure.medusa;
 
 import com.ultracapsuleadventure.entity.ModEntityTypes;
 
+import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Difficulty;
+import net.fabricmc.fabric.api.util.EventResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * 메두사 자연 생성(비 + 주변 + 40%) + 머리 드롭 + 석상 보호.
@@ -21,6 +27,25 @@ import net.minecraft.world.level.levelgen.Heightmap;
 public class MedusaEvents {
 
 	public static void register() {
+		// 석화된 몬스터는 석상 취급: "근처에 몬스터가 있어서 잘 수 없습니다" 판정에서 제외.
+		// 침대 주변(바닐라와 같은 범위)에 석화되지 않은 몬스터가 하나도 없으면 수면 허용,
+		// 있으면 PASS로 바닐라 판정(몬스터별 수면 방해 조건)에 맡긴다.
+		try {
+			EntitySleepEvents.ALLOW_NEARBY_MONSTERS.register((Player player, BlockPos sleepingPos, boolean vanillaResult) -> {
+				try {
+					Vec3 c = Vec3.atBottomCenterOf(sleepingPos);
+					AABB box = new AABB(c.x - 8.0, c.y - 5.0, c.z - 8.0, c.x + 8.0, c.y + 5.0, c.z + 8.0);
+					java.util.List<Monster> alive = player.level().getEntitiesOfClass(Monster.class, box,
+							m -> !Petrify.isPetrified(m));
+					if (alive.isEmpty()) {
+						return EventResult.ALLOW;
+					}
+				} catch (Exception ignored) {
+				}
+				return EventResult.PASS;
+			});
+		} catch (Throwable ignored) {
+		}
 		// 석상: 어떤 피해도 받지 않음 + 죽지 않음 (곡괭이 채굴만 허용 → 조약돌 2개)
 		try {
 			ServerLivingEntityEvents.ALLOW_DAMAGE.register((LivingEntity victim, DamageSource source, float amount) -> {

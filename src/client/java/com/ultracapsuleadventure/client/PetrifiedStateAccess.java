@@ -7,6 +7,8 @@ public interface PetrifiedStateAccess {
 	boolean UltraCapsuleAdventure$isPetrifiedState();
 
 	void UltraCapsuleAdventure$setPetrifiedState(boolean petrified);
+	java.util.UUID UltraCapsuleAdventure$getRenderEntityUuid();
+	void UltraCapsuleAdventure$setRenderEntityUuid(java.util.UUID uuid);
 }
 
 

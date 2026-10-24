@@ -16,6 +16,9 @@ public abstract class LivingEntityStatePetrifyMixin implements PetrifiedStateAcc
 	@Unique
 	private boolean UltraCapsuleAdventure$petrifiedState = false;
 
+	@Unique
+	private java.util.UUID UltraCapsuleAdventure$renderEntityUuid;
+
 	@Override
 	public boolean UltraCapsuleAdventure$isPetrifiedState() {
 		return UltraCapsuleAdventure$petrifiedState;
@@ -24,6 +27,16 @@ public abstract class LivingEntityStatePetrifyMixin implements PetrifiedStateAcc
 	@Override
 	public void UltraCapsuleAdventure$setPetrifiedState(boolean petrified) {
 		UltraCapsuleAdventure$petrifiedState = petrified;
+	}
+
+	@Override
+	public java.util.UUID UltraCapsuleAdventure$getRenderEntityUuid() {
+		return UltraCapsuleAdventure$renderEntityUuid;
+	}
+
+	@Override
+	public void UltraCapsuleAdventure$setRenderEntityUuid(java.util.UUID uuid) {
+		UltraCapsuleAdventure$renderEntityUuid = uuid;
 	}
 }
 

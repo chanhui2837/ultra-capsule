@@ -66,7 +66,7 @@ public class UltraCapsuleAdventureScreen extends Screen {
 	private static final String[] MODE_NAMES = { "울트라 캡슐 어드벤처", "영혼 캡슐", "공허 캡슐", "타이탄 캡슐", "도박 캡슐", "분해 캡슐", "메카 캡슐", "은신 캡슐" };
 
 	private static final int START_Y = 38;
-	private static final int ROW_H = 84;
+	private static final int ROW_H = 56;
 
 	public UltraCapsuleAdventureScreen(ItemStack capsule) {
 		super(Component.literal("울트라 캡슐 어드벤처"));
@@ -602,7 +602,7 @@ public class UltraCapsuleAdventureScreen extends Screen {
 					cap = capsuleSnapshot;
 				}
 				Minecraft.getInstance().gui.setScreen(new UltraCapsuleAdventureDetailScreen(cap, petIndex));
-			}).bounds(cx - 170, y + 62, 48, 16).build());
+			}).bounds(cx - 170, y + 38, 48, 16).build());
 		}
 
 		int shownFrom = pets.isEmpty() ? 0 : from + 1;
@@ -702,7 +702,7 @@ public class UltraCapsuleAdventureScreen extends Screen {
 		} catch (Exception ignored) {
 		}
 		int y = START_Y;
-		label(cx - 170, 20, 460, "재료·쿨타임·내구도 소모 없음 · 시간에 따라 복구");
+		label(cx - 170, 38, 460, "재료·쿨타임·내구도 소모 없음 · 시간에 따라 복구");
 		if (cool > now) {
 			label(cx - 170, y, 340, "쿨타임 " + ((cool - now) / 1000) + "초 남음! (사용 불가)");
 			y += 16;
@@ -891,7 +891,7 @@ public class UltraCapsuleAdventureScreen extends Screen {
 		var player = Minecraft.getInstance().player;
 		int y = START_Y;
 		if (mode == Mode.GAMBLE) {
-			label(cx - 170, 20, 460, "10초 후 2배 or 소멸 · 50% · 목록에서 걸 아이템 선택");
+			label(cx - 170, 38, 460, "10초 후 2배 or 소멸 · 50% · 목록에서 걸 아이템 선택");
 			ItemStack g = findLiveGambleCapsule();
 			if (g == null) {
 				g = capsuleSnapshot;
@@ -972,7 +972,7 @@ public class UltraCapsuleAdventureScreen extends Screen {
 				ClientPlayNetworking.send(new ModPackets.GambleWithdrawPayload());
 			}).bounds(cx - 65, y2, 80, 20).build());
 		} else if (mode == Mode.DIS) {
-			label(cx - 170, 20, 460, "역조합 분해 · 목록에서 선택 후 장전");
+			label(cx - 170, 38, 460, "역조합 분해 · 목록에서 선택 후 장전");
 			ItemStack d = findLiveDisCapsule();
 			if (d == null) {
 				d = capsuleSnapshot;
@@ -1048,7 +1048,7 @@ public class UltraCapsuleAdventureScreen extends Screen {
 				ClientPlayNetworking.send(new ModPackets.DisassemblePayload());
 			}).bounds(cx - 20, y3, 70, 20).build());
 		} else {
-			label(cx - 170, 20, 460, "들고 우클릭 꾹(3초): 로봇 변신");
+			label(cx - 170, 38, 460, "들고 우클릭 꾹(3초): 로봇 변신");
 			label(cx - 170, y, 340, "탑승 후 좌클릭: 레이저 / 스페이스: 점프");
 			y += 14;
 			label(cx - 170, y, 340, "탑승 중 좌클릭 꾹(3초): 캡슐 복귀 (변신과 동일)");
@@ -1064,6 +1064,7 @@ public class UltraCapsuleAdventureScreen extends Screen {
 		if (pets.size() <= visibleRows()) {
 			return false;
 		}
+		// 페이지 단위가 아니라 휠 한 칸에 한 줄씩 이어서 스크롤 (목록 전체가 한 화면에 쭉 이어짐)
 		int next = topIndex + (scrollY < 0 ? 1 : -1);
 		next = Math.max(0, Math.min(maxTop(), next));
 		if (next != topIndex) {
@@ -1219,6 +1220,18 @@ public class UltraCapsuleAdventureScreen extends Screen {
 				GuiDraw.fill(g, bx1 + 1, by1 + 1, bx1 + 1 + fillW, by1 + 2, 0x40FFFFFF);
 				GuiDraw.border(g, bx1, by1, bx2, by1 + 7, 0xFF2A2A3C);
 			}
+		}
+		// 스크롤바: 목록이 한 화면보다 길 때만 표시 (현재 위치 / 전체 길이)
+		if (pets.size() > vis) {
+			int sbx = pr - 6;
+			int sbTop = rowTop();
+			int sbBot = this.height - 56;
+			int trackH = Math.max(8, sbBot - sbTop);
+			GuiDraw.fill(g, sbx, sbTop, sbx + 3, sbTop + trackH, 0xFF0A0A12);
+			int thumbH = Math.max(10, Math.round(trackH * (vis / (float) pets.size())));
+			int maxT = Math.max(1, maxTop());
+			int thumbY = sbTop + Math.round((trackH - thumbH) * (Math.min(topIndex, maxTop()) / (float) maxT));
+			GuiDraw.fill(g, sbx, thumbY, sbx + 3, thumbY + thumbH, accent);
 		}
 	}
 

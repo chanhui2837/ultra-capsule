@@ -29,9 +29,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntityRenderer.class)
 public abstract class LivingEntityRendererPetrifyMixin {
 
+	@Inject(method = "extractRenderState(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;F)V", at = @At("HEAD"))
+	private void UltraCapsuleAdventure$restoreFrozenRotation(LivingEntity entity, LivingEntityRenderState state,
+			float tickProgress, CallbackInfo ci) {
+		// 월드 재입장 시 클라 엔티티의 몸통 방향이 머리 방향으로 초기화되는 문제 방지:
+		// 렌더 상태 추출 전에 석화 당시의 머리/몸통 방향을 항상 복원한다.
+		try {
+			if (entity instanceof PetrifiedAccess access && access.UltraCapsuleAdventure$isPetrified()) {
+				access.UltraCapsuleAdventure$applyFrozenRotation();
+			}
+		} catch (Exception ignored) {
+		}
+	}
+
 	@Inject(method = "extractRenderState(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;F)V", at = @At("RETURN"))
 	private void UltraCapsuleAdventure$markPetrified(LivingEntity entity, LivingEntityRenderState state, float tickProgress,
 			CallbackInfo ci) {
+		// Keep a stable entity key: render-state objects may be reused for different entities/frames.
+		try {
+			if (state instanceof PetrifiedStateAccess access) {
+				access.UltraCapsuleAdventure$setRenderEntityUuid(entity.getUUID());
+			}
+		} catch (Exception ignored) {
+		}
 		boolean p = false;
 		try {
 			p = entity instanceof PetrifiedAccess access && access.UltraCapsuleAdventure$isPetrified();
@@ -75,6 +95,11 @@ public abstract class LivingEntityRendererPetrifyMixin {
 			}
 		} catch (Exception ignored) {
 		}
+		// 석화체는 발광 외곽선(영혼의 파란 테두리 등) 제거: 외곽선 색은 state.outlineColor로 직접 그려진다.
+		try {
+			state.outlineColor = net.minecraft.client.renderer.entity.state.EntityRenderState.NO_OUTLINE;
+		} catch (Exception ignored) {
+		}
 		// 빨강 오버레이 원천 제거: extract 시점에 state에 구워진 값을 직접 끈다.
 		// entity.hurtTime=0만으로는 이미 구워진 state.hasRedOverlay가 그대로라서 빨갛게 됨.
 		try {
@@ -91,25 +116,28 @@ public abstract class LivingEntityRendererPetrifyMixin {
 			state.ageInTicks = frozen;
 		} catch (Exception ignored) {
 		}
+		// 석화 순간의 근접 공격 애니메이션을 서버 저장값에서 복원한다.
+		// 좀비/좀비 피글린 등이 팔을 올린 프레임 그대로 유지된다.
+		try {
+			if (state instanceof net.minecraft.client.renderer.entity.state.ArmedEntityRenderState armed
+					&& entity instanceof PetrifiedAccess access) {
+				armed.swingAnimation = access.UltraCapsuleAdventure$getFrozenAttackAnim();
+			}
+		} catch (Exception ignored) {
+		}
 		// 클라 복사본의 빨간 플래시도 제거 (서버 동기화 안 됨)
 		try {
 			entity.hurtTime = 0;
 			entity.deathTime = 0;
 		} catch (Exception ignored) {
 		}
-		// 걷기 중 석화 시 0.5초에 걸쳐 다리 나란히 (easing 후 고정)
+		// 석화된 엔티티의 걷기 입력은 렌더 프레임마다 다시 계산되므로
+		// 추출된 상태값을 반복 감쇠시키지 않고 즉시 0으로 고정한다.
+		// 이전 방식은 풀링된 RenderState에 매 프레임 감쇠를 누적해
+		// 모델 애니메이션 입력이 계속 변하는 원인이 될 수 있었다.
 		try {
-			java.util.UUID uid = null;
-			try {
-				uid = entity.getUUID();
-			} catch (Exception ignored) {
-			}
-			long now = System.currentTimeMillis();
-			long start = com.ultracapsuleadventure.client.StoneSwap.settleStart(uid, now);
-			float t = Math.max(0f, Math.min(1f, (now - start) / 200f));
-			float e = t * t * (3f - 2f * t);
-			state.walkAnimationPos = state.walkAnimationPos * (1f - e);
-			state.walkAnimationSpeed = state.walkAnimationSpeed * (1f - e);
+			state.walkAnimationPos = 0.0f;
+			state.walkAnimationSpeed = 0.0f;
 		} catch (Exception ignored) {
 		}
 		// 걷기/회전 중 석화 시 보간 떨림 제거
@@ -148,8 +176,15 @@ public abstract class LivingEntityRendererPetrifyMixin {
 		StoneSwap.ACTIVE = p;
 		// 시간 기반 유휴 모션 확정 동결 (렌더러 오버라이드와 무관)
 		if (p) {
+			// 회전·촉수·팔 흔들림 등 ageInTicks 기반 유휴 애니메이션을 완전히 정지한다.
+			// v3에서 빠져 있던 기존 동결 처리를 복구한다.
 			try {
-				state.ageInTicks = 0f;
+				state.ageInTicks = 0.0f;
+			} catch (Exception ignored) {
+			}
+			// 외곽선도 submit 시점에 한 번 더 끈다
+			try {
+				state.outlineColor = net.minecraft.client.renderer.entity.state.EntityRenderState.NO_OUTLINE;
 			} catch (Exception ignored) {
 			}
 			// submit 시점 최종 강제: extract 이후에 덮어쓰여도 여기서 다시 끈다
@@ -157,13 +192,8 @@ public abstract class LivingEntityRendererPetrifyMixin {
 				state.hasRedOverlay = false;
 			} catch (Exception ignored) {
 			}
-			// 공격 팔 내리기 (좀비 피글린 등): 휘두르기 진행도 0 고정
-			try {
-				if (state instanceof net.minecraft.client.renderer.entity.state.ArmedEntityRenderState armed) {
-					armed.swingAnimation = 0f;
-				}
-			} catch (Exception ignored) {
-			}
+			// swingAnimation was restored from the persisted snapshot during extraction.
+			// Do not reset it here: doing so drops zombie arms after the first render.
 			// 피격 흔들림 고정
 			try {
 				state.ticksSinceKineticHitFeedback = 0f;

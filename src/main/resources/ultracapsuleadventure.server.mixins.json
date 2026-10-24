@@ -1,0 +1,19 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.ultracapsuleadventure.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"LivingEntityPetrifyMixin",
+		"MobFreezeMixin",
+		"MobTargetPetrifyMixin",
+		"MobTargetMorphMixin",
+		"EndermanSoulWaterMixin",
+		"SoulEffectGuardMixin",
+		"CapsuleTableEnchantMixin",
+		"LivingEntityMorphImmuneMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

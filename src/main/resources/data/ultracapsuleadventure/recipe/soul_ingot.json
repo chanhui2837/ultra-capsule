@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ultracapsuleadventure:soul_shard",
+    "minecraft:lapis_lazuli"
+  ],
+  "result": {
+    "id": "ultracapsuleadventure:soul_ingot",
+    "count": 1
+  }
+}

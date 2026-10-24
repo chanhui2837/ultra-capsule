@@ -3,7 +3,6 @@ package com.ultracapsuleadventure.titan;
 import java.util.List;
 
 import com.ultracapsuleadventure.item.UltraCapsuleAdventureItem;
-import com.ultracapsuleadventure.medusa.MedusaHeadItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -391,14 +390,7 @@ public class TitanCapsuleItem extends Item {
 			return;
 		}
 		try {
-			if (stored.getItem() instanceof MedusaHeadItem) {
-				MedusaHeadItem.setCharged(stored, true);
-			} else {
-				try {
-					stored.setDamageValue(0);
-				} catch (Exception ignored) {
-				}
-			}
+			stored.setDamageValue(0);
 		} catch (Exception ignored) {
 		}
 		String label = TitanData.getLabel(cap);

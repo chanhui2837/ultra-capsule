@@ -22,6 +22,7 @@ public abstract class MobFreezeMixin {
 	private void UltraCapsuleAdventure$freezeMobTick(CallbackInfo ci) {
 		try {
 			if ((Object) this instanceof PetrifiedAccess access && access.UltraCapsuleAdventure$isPetrified()) {
+				access.UltraCapsuleAdventure$applyFrozenRotation();
 				ci.cancel();
 			}
 		} catch (Exception ignored) {

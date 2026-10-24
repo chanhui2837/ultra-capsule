@@ -111,6 +111,14 @@ public class UltraCapsuleAdventureMod implements ModInitializer {
 				}
 			} catch (Exception ignored) {
 			}
+			// 석화된 주민: 거래창 열림 차단
+			try {
+				String vid = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString();
+				if ("minecraft:villager".equals(vid) && com.ultracapsuleadventure.medusa.Petrify.isPetrified(entity)) {
+					return InteractionResult.SUCCESS;
+				}
+			} catch (Exception ignored) {
+			}
 			// 소울 캡슐로 내 소울 회수 (어느 손에 들고 있어도 됨)
 			ItemStack soulStack = null;
 			if (handStack.getItem() instanceof SoulCapsuleItem) {

@@ -3,7 +3,6 @@ package com.ultracapsuleadventure.titan;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ultracapsuleadventure.medusa.MedusaHeadItem;
 import com.ultracapsuleadventure.util.ItemNbt;
 
 import net.minecraft.core.HolderLookup;
@@ -252,27 +251,6 @@ public class TitanData {
 			total = getRepairRoot(job).getInt("total").orElse(0);
 		} catch (Exception ignored) {
 		}
-		// 메두사 머리는 시간이 되면 충전
-		boolean isHead = false;
-		try {
-			isHead = job.getItem() instanceof MedusaHeadItem;
-		} catch (Exception ignored) {
-		}
-		if (isHead) {
-			if (now >= doneAt) {
-				try {
-					MedusaHeadItem.setCharged(job, true);
-				} catch (Exception ignored) {
-				}
-				clearRepair(job);
-				finishCooldown(p);
-				try {
-					p.sendSystemMessage(Component.literal("메두사의 머리 충전 완료!"));
-				} catch (Exception ignored) {
-				}
-			}
-			return;
-		}
 		int cur = 0;
 		int max = 0;
 		try {
@@ -401,9 +379,6 @@ public class TitanData {
 				factor = repairTimeFactor(titanCap, registries);
 			} catch (Exception ignored) {
 			}
-			if (stack.getItem() instanceof MedusaHeadItem) {
-				return Math.max(1000L, (long) (HEAD_DURATION_MS * factor));
-			}
 			int max = 0;
 			int dmg = 0;
 			try {
@@ -440,13 +415,6 @@ public class TitanData {
 		try {
 			if (stack == null || stack.isEmpty()) {
 				return false;
-			}
-			if (stack.getItem() instanceof MedusaHeadItem) {
-				try {
-					return !MedusaHeadItem.isCharged(stack);
-				} catch (Exception e) {
-					return false;
-				}
 			}
 			// 캡슐류 중 메카 캡슐만 수리 허용 (나머지 캡슐은 명시적으로 제외)
 			try {

@@ -22,6 +22,9 @@ public class ModItems {
 
 	public static UltraCapsuleAdventureItem ultra_capsule_adventure;
 	public static FlameSwordItem FLAME_SWORD;
+	public static Item SOUL_SHARD;
+	public static Item SOUL_INGOT;
+	public static SoulSwordItem SOUL_SWORD;
 	public static SoulCapsuleItem SOUL_CAPSULE;
 	public static GambleCapsuleItem GAMBLE_CAPSULE;
 	public static DisassembleCapsuleItem DISASSEMBLE_CAPSULE;
@@ -62,6 +65,22 @@ public class ModItems {
 		FLAME_SWORD = new FlameSwordItem(flameProps);
 		Registry.register(BuiltInRegistries.ITEM, flameKey, FLAME_SWORD);
 
+		ResourceKey<Item> soulShardKey = ResourceKey.create(Registries.ITEM,
+				Identifier.fromNamespaceAndPath(UltraCapsuleAdventureMod.MOD_ID, "soul_shard"));
+		SOUL_SHARD = new Item(new Item.Properties().stacksTo(64).setId(soulShardKey));
+		Registry.register(BuiltInRegistries.ITEM, soulShardKey, SOUL_SHARD);
+
+		ResourceKey<Item> soulIngotKey = ResourceKey.create(Registries.ITEM,
+				Identifier.fromNamespaceAndPath(UltraCapsuleAdventureMod.MOD_ID, "soul_ingot"));
+		SOUL_INGOT = new Item(new Item.Properties().stacksTo(64).setId(soulIngotKey));
+		Registry.register(BuiltInRegistries.ITEM, soulIngotKey, SOUL_INGOT);
+
+		ResourceKey<Item> soulSwordKey = ResourceKey.create(Registries.ITEM,
+				Identifier.fromNamespaceAndPath(UltraCapsuleAdventureMod.MOD_ID, "soul_sword"));
+		Item.Properties soulSwordProps = new Item.Properties().stacksTo(1).setId(soulSwordKey);
+		soulSwordProps = FLAME_MATERIAL.applySwordProperties(soulSwordProps, 6.0F, -2.4F);
+		SOUL_SWORD = new SoulSwordItem(soulSwordProps);
+		Registry.register(BuiltInRegistries.ITEM, soulSwordKey, SOUL_SWORD);
 		ResourceKey<Item> soulKey = ResourceKey.create(Registries.ITEM,
 				Identifier.fromNamespaceAndPath(UltraCapsuleAdventureMod.MOD_ID, "soul_capsule"));
 		SOUL_CAPSULE = new SoulCapsuleItem(new Item.Properties().stacksTo(1)
@@ -134,8 +153,11 @@ public class ModItems {
 				.title(Component.translatable("itemGroup.UltraCapsuleAdventure.main"))
 				.displayItems((params, output) -> {
 					output.accept(ultra_capsule_adventure);
-					output.accept(FLAME_SWORD);
-					output.accept(SOUL_CAPSULE);
+				output.accept(FLAME_SWORD);
+				output.accept(SOUL_SHARD);
+				output.accept(SOUL_INGOT);
+				output.accept(SOUL_SWORD);
+				output.accept(SOUL_CAPSULE);
 					output.accept(GAMBLE_CAPSULE);
 					output.accept(DISASSEMBLE_CAPSULE);
 					output.accept(VOID_BUCKET);

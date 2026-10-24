@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "I",
+    "I",
+    "S"
+  ],
+  "key": {
+    "I": "ultracapsuleadventure:soul_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "ultracapsuleadventure:soul_sword",
+    "count": 1
+  }
+}

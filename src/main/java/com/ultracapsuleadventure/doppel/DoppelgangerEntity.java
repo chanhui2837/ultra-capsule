@@ -35,6 +35,8 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
+import com.ultracapsuleadventure.medusa.Petrify;
+
 /**
  * 도플갱어: 밤의 스토커.
  * - 밤에만 플레이어 근처에 나타남 (스폰은 DoppelEvents 담당)
@@ -326,7 +328,7 @@ public class DoppelgangerEntity extends Monster {
 		} catch (Exception ignored) {
 		}
 		// 스토크 중 눈 마주치면 순간이동 (쿨다운 40틱, 소울 아군은 제외: 주인이 쳐다봤다고 튀면 안 됨)
-		if (!soul && !isAmbush() && teleportCooldown <= 0) {
+		if (!soul && !isAmbush() && teleportCooldown <= 0 && !Petrify.isPetrified(this)) {
 			try {
 				ServerPlayer v = stalkVictimPlayer();
 				if (v != null && v.isAlive() && distanceToSqr(v) < 1024.0) {
@@ -345,7 +347,7 @@ public class DoppelgangerEntity extends Monster {
 			}
 		}
 		// 스토크 중 너무 멀어지면(48+) 피해자 근처로 몰래 순간이동
-		if (!isAmbush() && tickCount % 60 == 0) {
+		if (!isAmbush() && tickCount % 60 == 0 && !Petrify.isPetrified(this)) {
 			try {
 				ServerPlayer v = stalkVictimPlayer();
 				if (v != null && v.isAlive() && distanceToSqr(v) > 2304.0 && teleportCooldown <= 0) {
