@@ -266,26 +266,13 @@ public class Petrify {
 			if (!dragon.isAlive() || dragon.isRemoved()) {
 				return false;
 			}
-			float damage = (float) Math.max(1.0D, Math.min(dragon.getMaxHealth() * 0.18D, 18.0D));
-			DamageSource source = null;
-			if (attacker != null) {
-				source = level.damageSources().playerAttack(attacker);
-			} else if (medusa != null) {
-				source = level.damageSources().mobAttack(medusa);
-			} else {
-				source = level.damageSources().magic();
-			}
 
-			// EnderDragon은 보스 특성상 일반 mobAttack/magic 루트가 무시되거나 즉시 회복될 수 있어서,
-			// 실제로는 직접 피해를 적용하고, 최종 처치는 별도 조건에서 처리한다.
-			dragon.invulnerableTime = 0;
-			boolean dealt = dragon.hurt(source, damage);
-			if (!dealt) {
-				float current = Math.max(0.0F, dragon.getHealth() - damage);
-				dragon.setHealth(current);
-				dealt = true;
-			}
-			if (dragon.isDeadOrDying() && (fromGaze || fromHead)) {
+			float damage = (float) Math.max(1.0D, Math.min(dragon.getMaxHealth() * 0.18D, 18.0D));
+			float current = Math.max(0.0F, dragon.getHealth());
+			float next = Math.max(0.0F, current - damage);
+			dragon.setHealth(next);
+
+			if (next <= 0.0F && (fromGaze || fromHead)) {
 				try {
 					dragon.setHealth(0.0F);
 				} catch (Exception ignored) {
