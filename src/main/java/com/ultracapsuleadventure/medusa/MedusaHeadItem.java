@@ -60,7 +60,6 @@ public class MedusaHeadItem extends Item {
 
 	public static int getCharges(ItemStack stack) {
 		try {
-			// 구 CUSTOM_DATA 방식 1회 마이그레이션 → 내구도
 			CompoundTag root = getRoot(stack);
 			if (root.contains("charges") || root.contains("charged")) {
 				int old = 0;
@@ -117,7 +116,6 @@ public class MedusaHeadItem extends Item {
 		}
 	}
 
-	/** 1회 소모 후 남은 횟수 반환 (내구도 최대치에서 멈춰 사라지지 않음) */
 	public static int consumeCharge(ItemStack stack) {
 		try {
 			int cur = 0;
@@ -151,7 +149,6 @@ public class MedusaHeadItem extends Item {
 		}
 	}
 
-	/** 활처럼: 우클릭 꾹(조준) → 놓으면 발동. 조준 시작만 하고 발동은 releaseUsing에서. */
 	@Override
 	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
@@ -193,7 +190,6 @@ public class MedusaHeadItem extends Item {
 		if (level.isClientSide() || !(living instanceof ServerPlayer sp)) {
 			return;
 		}
-		// 조준 시작 신호음 (놓는 순간 발동, 최소 조준 시간 없음)
 		try {
 			if (used == 1) {
 				level.playSound(null, sp.blockPosition(), net.minecraft.sounds.SoundEvents.EXPERIENCE_ORB_PICKUP,
@@ -203,7 +199,6 @@ public class MedusaHeadItem extends Item {
 		}
 	}
 
-	/** 우클릭을 놓는 순간 발동 (조준 시간과 무관, 놓는 순간 시선 방향 대상에게 판정). */
 	@Override
 	public boolean releaseUsing(ItemStack stack, Level level, LivingEntity living, int timeLeft) {
 		if (level.isClientSide() || !(living instanceof Player player)) {
@@ -213,7 +208,6 @@ public class MedusaHeadItem extends Item {
 		return true;
 	}
 
-	/** 실제 석화 발사: 놓는 순간의 시선 방향으로 판정 */
 	private static void fire(Level level, Player player, ItemStack stack) {
 		boolean creative = false;
 		try {
@@ -249,7 +243,6 @@ public class MedusaHeadItem extends Item {
 						continue;
 					}
 					LivingEntity le = (LivingEntity) e;
-					// 안대 착용자는 머리 발사에도 면역
 					try {
 						if (BlindfoldItem.protects(le)) {
 							continue;
@@ -283,7 +276,7 @@ public class MedusaHeadItem extends Item {
 		boolean ok = false;
 		try {
 			if (hit instanceof EnderDragon dragon) {
-				ok = Petrify.applyMedusaDragonDamage(sl, dragon, null, false, true);
+				ok = Petrify.applyMedusaDragonDamage(sl, dragon, null, player, false, true);
 			} else if (hit instanceof ServerPlayer sp) {
 				ok = Petrify.petrifyPlayer(sl, sp, null) != null;
 			} else {

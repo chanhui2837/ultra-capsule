@@ -179,7 +179,6 @@ public class Petrify {
 	public static boolean mutualGaze(MedusaEntity medusa, LivingEntity victim) {
 		try {
 			if (victim instanceof EnderDragon) {
-				// 엔더드래곤은 일반 석화 대상이 아니라, 메두사 최종 타격용으로만 별도 처리한다.
 				if (!victim.isAlive() || victim.isRemoved()) {
 					return false;
 				}
@@ -207,14 +206,12 @@ public class Petrify {
 			if (!canPetrify(victim)) {
 				return false;
 			}
-			// 안대 착용자는 시선 석화 면역 (앞이 안 보이는 대신 눈이 마주치지 않음)
 			try {
 				if (BlindfoldItem.protects(victim)) {
 					return false;
 				}
 			} catch (Exception ignored) {
 			}
-			// 석화된 메두사의 얼굴을 봐도 석화되지 않는다 (이중 안전장치)
 			try {
 				if (medusa instanceof PetrifiedAccess access && access.UltraCapsuleAdventure$isPetrified()) {
 					return false;
@@ -257,6 +254,11 @@ public class Petrify {
 	 */
 	public static boolean applyMedusaDragonDamage(ServerLevel level, LivingEntity victim, MedusaEntity medusa,
 			boolean fromGaze, boolean fromHead) {
+		return applyMedusaDragonDamage(level, victim, medusa, null, fromGaze, fromHead);
+	}
+
+	public static boolean applyMedusaDragonDamage(ServerLevel level, LivingEntity victim, MedusaEntity medusa,
+			Player attacker, boolean fromGaze, boolean fromHead) {
 		try {
 			if (!(victim instanceof EnderDragon dragon)) {
 				return false;
@@ -265,10 +267,23 @@ public class Petrify {
 				return false;
 			}
 			float damage = (float) Math.max(1.0D, Math.min(dragon.getMaxHealth() * 0.18D, 18.0D));
-			DamageSource source = medusa == null ? level.damageSources().magic() : level.damageSources().mobAttack(medusa);
-			boolean dealt = dragon.hurtServer(level, source, damage);
+			DamageSource source = null;
+			if (attacker != null) {
+				source = level.damageSources().playerAttack(attacker);
+			} else if (medusa != null) {
+				source = level.damageSources().mobAttack(medusa);
+			} else {
+				source = level.damageSources().magic();
+			}
+
+			// EnderDragon은 보스 특성상 일반 mobAttack/magic 루트가 무시되거나 즉시 회복될 수 있어서,
+			// 실제로는 직접 피해를 적용하고, 최종 처치는 별도 조건에서 처리한다.
+			dragon.invulnerableTime = 0;
+			boolean dealt = dragon.hurt(source, damage);
 			if (!dealt) {
-				return false;
+				float current = Math.max(0.0F, dragon.getHealth() - damage);
+				dragon.setHealth(current);
+				dealt = true;
 			}
 			if (dragon.isDeadOrDying() && (fromGaze || fromHead)) {
 				try {
@@ -337,7 +352,6 @@ public class Petrify {
 				recordPetrifier(victim.getUUID(), medusa == null ? null : medusa.getUUID());
 			} catch (Exception ignored) {
 			}
-			// 메카 석화 시 즉시 강제 하차: 탑승자가 돌과 함께 동결/동승 고정되는 것 방지
 			try {
 				if (victim.isVehicle()) {
 					victim.ejectPassengers();
@@ -357,7 +371,6 @@ public class Petrify {
 				victim.setDeltaMovement(0, 0, 0);
 			} catch (Exception ignored) {
 			}
-			// 맞던 중 석화 시 빨간 플래시 영구 동결 방지 + 불 끄기
 			try {
 				victim.hurtTime = 0;
 				victim.deathTime = 0;
@@ -367,7 +380,6 @@ public class Petrify {
 				victim.clearFire();
 			} catch (Exception ignored) {
 			}
-			// 석화 순간 독/위더 제거: 석화된 채 독사해서 영구 돌시체가 되는 것 방지
 			try {
 				victim.removeEffect(net.minecraft.world.effect.MobEffects.POISON);
 			} catch (Exception ignored) {
@@ -411,7 +423,6 @@ public class Petrify {
 		}
 	}
 
-	/** 곡괭이 채굴: 석화체 제거 + 조약돌 2개. 성공 시 true (피해 취소용으로 false 반환할 것) */
 	public static boolean tryMinePetrified(ServerPlayer sp, LivingEntity victim) {
 		try {
 			if (sp == null || victim == null) {
@@ -573,7 +584,6 @@ public class Petrify {
 						decoy.getX(), decoy.getY() + 1, decoy.getZ(), 16, 0.5, 1.0, 0.5, 0.06);
 			} catch (Exception ignored) {
 			}
-			// 즉시 사망 판정
 			try {
 				DamageSource src;
 				try {
